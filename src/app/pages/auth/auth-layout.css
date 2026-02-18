@@ -1,0 +1,116 @@
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--color-bg-page);
+}
+
+.auth-left {
+  flex: 1;
+  max-width: calc(100% - 642px);
+  position: relative;
+  background: var(--color-bg-panel-alt);
+}
+
+.auth-left-rect {
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg-panel-alt);
+}
+
+.auth-ellipse {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.auth-ellipse-outer {
+  width: 1018px;
+  height: 1018px;
+  background: var(--color-accent-muted);
+}
+
+.auth-ellipse-inner {
+  width: 842px;
+  height: 842px;
+  background: var(--color-accent);
+}
+
+.auth-decoration {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.auth-right {
+  width: 642px;
+  min-width: 642px;
+  background: var(--color-bg-panel);
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.auth-form-wrapper {
+  margin-top: 200px;
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* gap: 40px; */
+  width: 100%;
+  max-width: 490px;
+  /* padding: 0 76px; */
+}
+
+.auth-form-wrapper-bot {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+  height: 250px;
+  object-fit: contain;
+  object-position: left top;
+  pointer-events: none;
+}
+
+.auth-header {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  gap: 1rem;
+  margin-bottom: 40px;
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.auth-logo-text {
+  font-family: 'Porkys', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 61px;
+  line-height: 1.19;
+  letter-spacing: 0.03em;
+  /* text-transform: uppercase; */
+  color: var(--color-accent);
+}
+
+@media (max-width: 1024px) {
+  .auth-left {
+    display: none;
+  }
+
+  .auth-right {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .auth-form-wrapper {
+    padding: 0 2rem;
+  }
+}

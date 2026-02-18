@@ -1,0 +1,42 @@
+---
+description: Требование использовать сигнальный API форм из @angular/forms/signals вместо FormBuilder/FormGroup
+alwaysApply: true
+---
+
+# Формы в Angular — только через сигналы
+
+- **Не использовать** классические реактивные формы Angular:
+  - `FormBuilder`
+  - `FormGroup`, `FormControl`, `FormArray` из `@angular/forms`
+- **Новые формы создаём только** с помощью сигнального API из `@angular/forms/signals`.
+
+## Примеры
+
+```typescript
+// ❌ ПЛОХО — классические реактивные формы
+import { FormBuilder, FormGroup } from '@angular/forms';
+
+export class ExampleComponent {
+  form: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      name: [''],
+      email: [''],
+    });
+  }
+}
+```
+
+```typescript
+// ✅ ХОРОШО — сигнальные формы
+import { form } from '@angular/forms/signals';
+
+export class ExampleComponent {
+  private readonly model = signal({});
+  private readonly forms = form(this.model, (path) => {});
+}
+```
+
+Если нужно добавить новую форму или переработать существующую, выбираем подходящий сигнальный API из `@angular/forms/signals` и **не возвращаемся** к `FormBuilder`/`FormGroup`.
+

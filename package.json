@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm run svg && ng serve --port 4400",
+    "build": "npm run svg && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "svg": "svg-generator",
     "serve:ssr:kodey-crm-front": "node dist/kodey-crm-front/server/server.mjs"
   },
   "prettier": {
@@ -21,9 +22,26 @@
       }
     ]
   },
+  "svgGenerator": {
+    "outputPath": "./src/app/svg",
+    "srcPath": "./public/svg",
+    "svgoConfig": {
+      "plugins": [
+        "removeDimensions",
+        "cleanupAttrs",
+        {
+          "name": "convertColors",
+          "params": {
+            "currentColor": true
+          }
+        }
+      ]
+    }
+  },
   "private": true,
   "packageManager": "npm@11.6.2",
   "dependencies": {
+    "@angular/cdk": "^21.0.0",
     "@angular/common": "^21.1.0",
     "@angular/compiler": "^21.1.0",
     "@angular/core": "^21.1.0",
@@ -32,6 +50,15 @@
     "@angular/platform-server": "^21.1.0",
     "@angular/router": "^21.1.0",
     "@angular/ssr": "^21.1.2",
+    "@ngneat/svg-generator": "^7.0.3",
+    "@ngneat/svg-icon": "^8.0.0",
+    "@taiga-ui/addon-mobile": "^4.70.0",
+    "@taiga-ui/cdk": "^4.70.0",
+    "@taiga-ui/core": "^4.70.0",
+    "@taiga-ui/event-plugins": "^4.0.2",
+    "@taiga-ui/icons": "^4.70.0",
+    "@taiga-ui/kit": "^4.70.0",
+    "@ng-web-apis/universal": "^4.12.2",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
@@ -44,6 +71,7 @@
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
     "jsdom": "^27.1.0",
+    "less": "^4.5.1",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.12",
     "typescript": "~5.9.2",

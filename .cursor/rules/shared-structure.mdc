@@ -1,0 +1,45 @@
+---
+description: Shared folder structure for models, directives, and shared components
+alwaysApply: true
+---
+
+# Shared Structure Conventions
+
+## Models
+
+When creating a **model** (data type, DTO, entity shape):
+
+- Put the file in **`shared/models/`** (e.g. `shared/models/user.model.ts`).
+- Define an **interface** for the shape (e.g. `User`, `Order`, `ApiResponse<T>`).
+- Use kebab-case for file names: `user.model.ts`, `order-item.model.ts`.
+
+```typescript
+// shared/models/user.model.ts
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+}
+```
+
+## Directives and Shared Components
+
+When adding **directives** or **shared components** (reusable across the app):
+
+- Put them under the **`shared/`** folder.
+- Use clear subfolders, e.g.:
+  - `shared/directives/` for directives
+  - `shared/components/` for shared UI components
+
+```text
+shared/
+  models/
+    user.model.ts
+  directives/
+    highlight.directive.ts
+  components/
+    button/
+      button.component.ts
+```
+
+Do not place models in feature folders when they are reused; use `shared/models/` and add the interface there.

@@ -1,3 +1,219 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+
+/* ========== Fonts ========== */
+@font-face {
+  font-family: 'Porkys';
+  src: url('/fonts/PORKYS_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ========== Theme: CSS variables ========== */
+:root,
+[data-theme="dark"] {
+  --color-bg-page: #030303;
+  --color-bg-panel: #090909;
+  --color-bg-panel-alt: #000c31;
+  --color-text-primary: #fff;
+  --color-text-secondary: #7d7d85;
+  --color-text-muted: #e5e5ea;
+  --color-accent: #009aff;
+  --color-accent-muted: rgba(0, 154, 255, 0.05);
+  --color-border: #009aff;
+  --color-input-bg: transparent;
+  --color-btn-bg: #009aff;
+  --color-btn-text: #e5e5ea;
+  --color-icon: #009aff;
+  --color-toggle-icon: #7d7d85;
+  --color-toggle-icon-hover: #fff;
+}
+
+[data-theme="light"] {
+  --color-bg-page: #f5f5f7;
+  --color-bg-panel: #ffffff;
+  --color-bg-panel-alt: #e8f4fc;
+  --color-text-primary: #1d1d1f;
+  --color-text-secondary: #6e6e73;
+  --color-text-muted: #424245;
+  --color-accent: #0071e3;
+  --color-accent-muted: rgba(0, 113, 227, 0.08);
+  --color-border: #0071e3;
+  --color-input-bg: transparent;
+  --color-btn-bg: #0071e3;
+  --color-btn-text: #fff;
+  --color-icon: #0071e3;
+  --color-toggle-icon: #6e6e73;
+  --color-toggle-icon-hover: #1d1d1f;
+}
+
+/* Default: dark theme if no preference */
+:root {
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* Auth pages – shared form styles (login/register) */
+.auth-form-block {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.auth-form-title {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.19;
+  /* text-transform: uppercase; */
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.auth-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-input-bg);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.auth-input-row:focus-within {
+  outline: none;
+  border-bottom-color: var(--color-accent);
+}
+
+.auth-input-row-error,
+.auth-input-row-error:focus-within {
+  border-bottom-color: #CC1010;
+}
+
+.auth-input-row-error .auth-input-icon,
+.auth-input-row-error .auth-input-actions,
+.auth-input-row-error .auth-toggle-pwd,
+.auth-input-row-error input,
+.auth-input-row-error input::placeholder {
+  color: #CC1010;
+}
+
+.auth-input-row input,
+.auth-input-row select {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 20px;
+  line-height: 1.19;
+  color: var(--color-text-primary);
+  min-width: 0;
+}
+
+.auth-input-row input::placeholder,
+.auth-input-row select {
+  color: var(--color-text-secondary);
+}
+
+.auth-input-row input:focus,
+.auth-input-row select:focus {
+  outline: none;
+}
+
+.auth-input-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--color-icon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-input-actions {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.auth-toggle-pwd {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-toggle-pwd:hover {
+  color: var(--color-text-primary);
+}
+
+.auth-form-footer {
+  display: flex;
+  /* align-items: center; */
+  /* gap: 40px; */
+  /* flex-wrap: wrap; */
+}
+
+.auth-form-footer-text {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.49;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.auth-form-footer-text a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.auth-form-footer-text a:hover {
+  text-decoration: underline;
+}
+
+.auth-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 20px;
+  min-width: 270px;
+  height: 52px;
+  background: var(--color-btn-bg);
+  border: none;
+  border-radius: 8px;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-btn-text);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.auth-btn:hover {
+  opacity: 0.9;
+}
+
+.auth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
