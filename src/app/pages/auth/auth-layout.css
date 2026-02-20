@@ -55,7 +55,7 @@
 }
 
 .auth-form-wrapper {
-  @apply md:mt-100;
+  @apply md:mt-40;
   display: flex;
   flex-direction: column;
   width: 100%;
