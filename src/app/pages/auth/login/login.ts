@@ -3,10 +3,12 @@ import { RouterLink } from '@angular/router';
 import { form, required, submit, FormField } from '@angular/forms/signals';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [RouterLink, FormField],
   templateUrl: './login.html',
+  selector: 'app-login',
+  host: {
+    class: 'auth-form-block'
+  },
+  imports: [RouterLink, FormField],
 })
 export default class LoginComponent {
   loginModel = signal<{ login: string; password: string }>({

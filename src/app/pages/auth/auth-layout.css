@@ -1,13 +1,15 @@
+@import "tailwindcss";
+
 .auth-page {
   display: flex;
   min-height: 100vh;
+  height: 100%;
   width: 100%;
   background: var(--color-bg-page);
 }
 
 .auth-left {
-  flex: 1;
-  max-width: calc(100% - 642px);
+  @apply w-full md:w-[calc(100%-642px)] flex h-50! md:h-auto! md:overflow-hidden md:flex-1;
   position: relative;
   background: var(--color-bg-panel-alt);
 }
@@ -15,57 +17,53 @@
 .auth-left-rect {
   position: absolute;
   inset: 0;
+  z-index: -1;
   background: var(--color-bg-panel-alt);
 }
 
 .auth-ellipse {
-  position: absolute;
+  @apply left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 absolute;
   border-radius: 50%;
 }
 
 .auth-ellipse-outer {
-  width: 1018px;
-  height: 1018px;
+  @apply h-45 w-45 lg:w-250 lg:h-250;
   background: var(--color-accent-muted);
 }
 
 .auth-ellipse-inner {
-  width: 842px;
-  height: 842px;
+  @apply w-36 h-36 lg:w-200 lg:h-200;
   background: var(--color-accent);
 }
 
 .auth-decoration {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  @apply top-1/2 left-1/2 flex w-full md:absolute md:transform md:-translate-y-1/2 md:-translate-x-1/2 h-full z-10;
   opacity: 1;
+}
+.auth-decoration img {
+  @apply h-full w-full object-contain;
 }
 
 .auth-right {
+  @apply min-h-[calc(100vh-200px)]! h-[calc(100vh-200px)] md:h-auto!;
   width: 642px;
   min-width: 642px;
   background: var(--color-bg-panel);
   display: flex;
-  /* align-items: center; */
   justify-content: center;
   padding: 2rem 0;
 }
 
 .auth-form-wrapper {
-  margin-top: 200px;
-  /* position: relative; */
+  @apply md:mt-100;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* gap: 40px; */
   width: 100%;
   max-width: 490px;
-  /* padding: 0 76px; */
 }
 
 .auth-form-wrapper-bot {
+  @apply hidden md:block;
   position: absolute;
   right: 0;
   top: 0;
@@ -76,12 +74,24 @@
   pointer-events: none;
 }
 
+
+.auth-form-wrapper-bot-sm {
+  @apply md:hidden;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: auto;
+  height: 250px;
+  object-fit: contain;
+  object-position: left top;
+  pointer-events: none;
+}
+
 .auth-header {
+  @apply mb-4 md:mb-10;
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
   gap: 1rem;
-  margin-bottom: 40px;
 }
 
 .auth-brand {
@@ -91,19 +101,18 @@
 }
 
 .auth-logo-text {
+  @apply text-2xl md:text-4xl;
   font-family: 'Porkys', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 700;
-  font-size: 61px;
   line-height: 1.19;
   letter-spacing: 0.03em;
-  /* text-transform: uppercase; */
   color: var(--color-accent);
 }
 
 @media (max-width: 1024px) {
-  .auth-left {
+  /* .auth-left {
     display: none;
-  }
+  } */
 
   .auth-right {
     width: 100%;

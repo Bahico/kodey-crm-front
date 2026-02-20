@@ -5,11 +5,10 @@ import { injectRegisterIcons } from '@ngneat/svg-icon';
 import { infoIcon } from '@/svg/info';
 
 @Component({
-  selector: 'app-auth-layout',
-  standalone: true,
-  imports: [RouterOutlet, ThemeToggleComponent],
   templateUrl: './auth-layout.html',
   styleUrl: './auth-layout.css',
+  selector: 'app-auth-layout',
+  imports: [RouterOutlet, ThemeToggleComponent],
 })
 export class AuthLayoutComponent {
   constructor() {

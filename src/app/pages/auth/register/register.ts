@@ -4,10 +4,11 @@ import { RouterLink } from '@angular/router';
 import { form, required, submit, FormField } from '@angular/forms/signals';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, FormField],
   templateUrl: './register.html',
+  selector: 'app-register',
+  host: {
+    class: 'auth-form-block'
+  },  imports: [ReactiveFormsModule, RouterLink, FormField],
 })
 export default class RegisterComponent {
 
@@ -37,7 +38,7 @@ export default class RegisterComponent {
   hideConfirmPassword = true;
 
   onSubmit(): void {
-    
+
     submit(this.registerForm, async () => {
       // TODO: call auth API
       console.log('Register', this.registerModel());
