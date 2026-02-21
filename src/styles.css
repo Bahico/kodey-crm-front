@@ -57,6 +57,8 @@
   --color-primary: var(--color-text-primary);
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Default: dark theme if no preference */
 :root {
   color-scheme: dark;
