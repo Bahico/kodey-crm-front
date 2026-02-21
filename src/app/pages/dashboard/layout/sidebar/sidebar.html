@@ -1,0 +1,57 @@
+<aside
+  class="flex w-[347px] shrink-0 flex-col border-r-2 border-[#28292D] bg-[#181A1E] min-h-full"
+  aria-label="Боковое меню"
+>
+  <!-- Логотип -->
+  <div class="flex items-center gap-3 px-8 pt-5 h-[100px] border-b-2 border-[#28292D]">
+    <svg-icon key="logo-kodey" class="text-[#009AFF]" size="xl" />
+    <span class="font-bold text-[#009AFF] text-[35px] leading-tight tracking-[0.03em] uppercase" style="font-family: Porkys, sans-serif">
+      kodey CRM
+    </span>
+  </div>
+
+  <!-- Карточка пользователя -->
+  <div class="flex items-center gap-3 px-8 pt-4">
+    <div
+      class="h-[74px] w-[74px] shrink-0 rounded-[37px] border border-[#009AFF] bg-[#2A2C30] bg-cover bg-center"
+      [style.background-image]="userAvatar()"
+      role="img"
+      [attr.aria-label]="user().fullName"
+    ></div>
+    <div class="flex min-w-0 flex-col justify-center gap-0.5">
+      <span class="text-sm text-[#009AFF]">{{ user().role }}</span>
+      <span class="text-2xl text-white">{{ user().fullName }}</span>
+      <span class="text-base text-[#7D7D85]">{{ user().username }}</span>
+    </div>
+  </div>
+
+  <div class="border-t-2 border-[#28292D] mt-2" aria-hidden="true"></div>
+
+  <!-- Навигация -->
+  <nav class="flex flex-1 flex-col gap-4 px-8 pt-6" aria-label="Основное меню">
+    @for (item of navItems(); track item.path) {
+      <a
+        [routerLink]="item.path"
+        routerLinkActive="bg-[#2A2D31]"
+        [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+        class="flex items-center gap-3 rounded-lg px-2 py-2 text-[#DDDDDD] transition-colors hover:bg-[#2A2D31]/70"
+      >
+        <svg-icon [key]="item.icon" class="h-7 w-7 shrink-0" size="lg" />
+        <span class="text-xl font-medium">{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+
+  <!-- Выход -->
+  <div class="border-t-2 border-[#28292D] bg-[#2A2C30] px-9 py-3.5">
+    <button
+      type="button"
+      class="flex items-center gap-3 text-white transition-opacity hover:opacity-90"
+      (click)="logout()"
+      aria-label="Выйти из аккаунта"
+    >
+      <svg-icon key="exit" class="h-8 w-8 shrink-0" size="lg" />
+      <span class="text-xl font-medium">Выйти из аккаунта</span>
+    </button>
+  </div>
+</aside>

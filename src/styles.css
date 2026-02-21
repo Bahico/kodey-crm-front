@@ -55,6 +55,7 @@
 
 @theme {
   --color-primary: var(--color-text-primary);
+  --color-page: var(--color-bg-dropdown);
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

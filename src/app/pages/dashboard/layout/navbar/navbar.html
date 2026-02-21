@@ -1,0 +1,54 @@
+<header
+  class="flex h-[100px] shrink-0 items-center justify-between border-b-2 border-[#28292D] bg-[#181A1E] px-6"
+  role="banner"
+>
+  <!-- Левая часть: Главная -->
+  <a
+    [routerLink]="homePath()"
+    routerLinkActive="cursor-default"
+    [routerLinkActiveOptions]="{ exact: false }"
+    class="flex items-center gap-3 transition-opacity hover:opacity-90"
+    [attr.aria-current]="isHomeActive() ? 'page' : null"
+  >
+    <svg-icon key="home" class="h-8 w-8 shrink-0 text-[#DDDDDD]" size="lg" />
+    <span class="text-2xl font-medium text-[#DDDDDD]">Главная</span>
+  </a>
+
+  <!-- Правая часть: поиск, разделитель, уведомления, тема -->
+  <div class="flex items-center gap-8">
+    <!-- Поле поиска -->
+    <div
+      class="flex h-12 w-[476px] max-w-full items-center gap-3 rounded-xl border border-[#4E5258] bg-[#20242C] pl-[15px] pr-4"
+    >
+      <svg-icon key="search" class="h-6 w-6 shrink-0 text-[#7D7D85]" size="md" />
+      <input
+        type="search"
+        [placeholder]="searchPlaceholder()"
+        [value]="searchQuery()"
+          (input)="searchQuery.set($any($event.target).value)"
+        class="min-w-0 flex-1 bg-transparent text-base text-white placeholder:text-[#7D7D85] focus:outline-none"
+        aria-label="Поиск по сайту"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="h-10 w-px shrink-0 bg-[#7D7D85]" aria-hidden="true"></div>
+
+    <!-- Кнопка уведомлений -->
+    <button
+      type="button"
+      class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#4E5258] bg-[#20242C] text-[#DDDDDD] transition-colors hover:bg-[#2A2C30]"
+      (click)="onNotificationsClick()"
+      aria-label="Уведомления"
+    >
+      <svg-icon key="notification" class="h-6 w-6" size="lg"/>
+    </button>
+
+    <!-- Переключатель темы -->
+    <div
+      class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#4E5258] bg-[#20242C]"
+    >
+      <app-theme-toggle />
+    </div>
+  </div>
+</header>

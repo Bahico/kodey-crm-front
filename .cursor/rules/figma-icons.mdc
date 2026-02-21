@@ -1,0 +1,80 @@
+---
+description: Работа с иконками и изображениями из Figma — пути сохранения и использование svg-icon
+alwaysApply: false
+---
+
+# Иконки и изображения из Figma
+
+В проекте иконки из Figma подключаются через **@ngneat/svg-icon** и **@ngneat/svg-generator**; растровые изображения из макета сохраняются в `public/images`.
+
+## Изображения (картинки) из Figma
+
+- Растровые изображения и картинки из макета Figma (фото, иллюстрации, логотипы в PNG/JPG и т.п.) сохраняй в папку **`public/images/`**.
+- При необходимости используй подпапки, например: `public/images/logos/`, `public/images/hero/`.
+- В шаблонах подключай их по пути от `public`: например, `src="images/logos/logo.svg"` или `src="images/hero/banner.png"`.
+
+## 1. Сохранение иконок из Figma
+
+- Иконки из макета Figma сохраняй в папку **`public/svg/`**.
+- Имена файлов — в **kebab-case** (например: `full-name.svg`, `dropdown.svg`, `position.svg`).
+- Формат файлов: обычный SVG (без лишних обёрток).
+
+## 2. Генерация TypeScript-иконок
+
+После добавления или изменения SVG в `public/svg/` выполни в терминале:
+
+```bash
+npm run svg
+```
+
+Скрипт читает файлы из **`public/svg/`** и генерирует модули в **`src/app/svg/`** (например: `fullName.ts`, `dropdown.ts`). Имя файла в `src/app/svg/` — в **camelCase**, ключ иконки (`name`) — в **kebab-case**.
+
+## 3. Использование иконки в компоненте
+
+1. **Импорт**: импортируй сгенерированную иконку из `@/svg/...` (имя файла в camelCase, без расширения).
+2. **Регистрация**: в конструкторе компонента вызови **`injectRegisterIcons`** и передай массив нужных иконок.
+3. **Шаблон**: добавь в `imports` компонента **`SvgIconComponent`** и используй в HTML **`<svg-icon key="имя-иконки" />`**, где `key` — значение в kebab-case (как в `name` у сгенерированного объекта).
+
+## Пример
+
+**Файл в Figma / сохранён как:** `public/svg/full-name.svg`
+
+**После `npm run svg`:** создаётся `src/app/svg/fullName.ts` с экспортом `fullNameIcon` и `name: 'full-name'`.
+
+**В компоненте:**
+
+```typescript
+import { injectRegisterIcons } from '@ngneat/svg-icon';
+import { SvgIconComponent } from '@ngneat/svg-icon';
+import { fullNameIcon } from '@/svg/fullName';
+
+@Component({
+  // ...
+  imports: [SvgIconComponent],
+})
+export default class MyComponent {
+  constructor() {
+    injectRegisterIcons([fullNameIcon]);
+  }
+}
+```
+
+**В шаблоне:**
+
+```html
+<svg-icon key="full-name" />
+<svg-icon key="full-name" size="lg" />
+```
+
+- **key** всегда в kebab-case и совпадает с полем `name` сгенерированной иконки (например: `full-name`, `position`, `dropdown`).
+- При необходимости подключай несколько иконок: `injectRegisterIcons([fullNameIcon, positionIcon, dropdownIcon])`.
+
+## Краткая памятка
+
+| Действие | Путь / команда |
+|----------|-----------------|
+| Скачать изображение из Figma | `public/images/` (при необходимости подпапки: `logos/`, `hero/` и т.д.) |
+| Сохранить иконку из Figma | `public/svg/<имя>.svg` (kebab-case) |
+| Сгенерировать модули иконок | `npm run svg` в терминале |
+| Результат генерации | `src/app/svg/*.ts` (camelCase имён файлов) |
+| Использование иконки | `injectRegisterIcons([...])` в конструкторе, `<svg-icon key="kebab-name" />` в HTML |
