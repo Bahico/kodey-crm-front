@@ -4,35 +4,49 @@
     <label class="auth-input-row"
            [class.auth-input-row-error]="registerForm.name().invalid() && registerForm.name().touched()">
         <span class="auth-input-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"
-              fill="currentColor"/>
-          </svg>
+          <svg-icon key="full-name" size="lg" />
         </span>
       <input type="text" [formField]="registerForm.name" placeholder="Имя" autocomplete="name"/>
     </label>
-    <label class="auth-input-row"
-           [class.auth-input-row-error]="registerForm.position().invalid() && registerForm.position().touched()">
-        <span class="auth-input-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M20 6H4C2.9 6 2 6.9 2 8V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V8C22 6.9 21.1 6 20 6ZM20 20H4V8H20V20ZM6 14H18V16H6V14ZM6 10H12V12H6V10Z"
-              fill="currentColor"/>
-          </svg>
-        </span>
-      <select [formField]="registerForm.position">
-        <option value="" disabled>Должность</option>
-        <option value="manager">Менеджер</option>
-        <option value="sales">Продажи</option>
-        <option value="support">Поддержка</option>
-        <option value="other">Другое</option>
-      </select>
-      <span class="auth-input-actions">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 10L12 15L17 10H7Z" fill="currentColor"/>
-          </svg>
-        </span>
+    <label
+      class="auth-input-row"
+      [class.auth-input-row-error]="registerForm.position().invalid() && registerForm.position().touched()"
+      [tuiDropdown]="dropdownContent"
+      [(tuiDropdownOpen)]="openPosition"
+      tuiDropdownLimitWidth="fixed"
+    >
+      <span class="auth-input-icon" aria-hidden="true">
+        <svg-icon key="position" size="lg"  />
+      </span>
+
+      <span
+        class="text-gray-400 text-lg"
+        [class.text-primary]="registerModel().position"
+      >{{registerModel().position || 'Должность'}}</span>
+
+      <ng-template
+        #dropdownContent
+      >
+        <tui-data-list>
+          <tui-opt-group>
+            @for (item of items; track $index) {
+              <button
+                tuiOption
+                type="button"
+                (click)="positionClick(item)"
+              >
+                <span class="flex items-center gap-2">
+                  <svg-icon key="position" size="lg" />
+                  {{ item }}
+                </span>
+              </button>
+            }
+          </tui-opt-group>
+        </tui-data-list>
+      </ng-template>
+      <span class="auth-input-actions text-white">
+        <svg-icon key="dropdown"/>
+      </span>
     </label>
     <label class="auth-input-row"
            [class.auth-input-row-error]="registerForm.login().invalid() && registerForm.login().touched()">
@@ -54,12 +68,12 @@
               fill="currentColor"/>
           </svg>
         </span>
-      <input [type]="hidePassword ? 'password' : 'text'" [formField]="registerForm.password" placeholder="Пароль"
+      <input [type]="hidePassword() ? 'password' : 'text'" [formField]="registerForm.password" placeholder="Пароль"
              autocomplete="new-password"/>
       <span class="auth-input-actions">
-          <button type="button" (click)="hidePassword = !hidePassword" class="auth-toggle-pwd"
+          <button type="button" (click)="hidePassword.set(!hidePassword())" class="auth-toggle-pwd"
                   aria-label="Показать или скрыть пароль">
-            @if (hidePassword) {
+            @if (hidePassword()) {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path
                 d="M12 7C14.76 7 17 9.24 17 12C17 12.65 16.87 13.26 16.64 13.83L19.56 16.75C21.07 15.49 22.26 13.86 22.99 12C21.26 7.61 16.99 4.5 11.99 4.5C10.59 4.5 9.25 4.75 8 5.2L10.17 7.35C10.74 7.13 11.35 7 12 7ZM2 4.27L4.28 6.55L4.73 7C3.08 8.3 1.78 10.02 1 12C2.73 16.39 7 19.5 12 19.5C13.55 19.5 15.03 19.2 16.38 18.66L16.8 19.08L19.73 22L21 20.73L3.27 3L2 4.27ZM7.53 9.8L9.08 11.35C9.03 11.56 9 11.78 9 12C9 13.66 10.34 15 12 15C12.22 15 12.44 14.97 12.65 14.92L14.2 16.47C13.53 16.8 12.79 17 12 17C9.24 17 7 14.76 7 12C7 11.21 7.2 10.47 7.53 9.8ZM11.84 9.02L14.99 12.17L15.02 12C15.02 10.35 13.67 9 12 9L11.84 9.02Z"
                 fill="currentColor"/></svg>
@@ -80,12 +94,12 @@
               fill="currentColor"/>
           </svg>
         </span>
-      <input [type]="hideConfirmPassword ? 'password' : 'text'" [formField]="registerForm.confirmPassword"
+      <input [type]="hideConfirmPassword() ? 'password' : 'text'" [formField]="registerForm.confirmPassword"
              placeholder="Подтверждение пароля" autocomplete="new-password"/>
       <span class="auth-input-actions">
-          <button type="button" (click)="hideConfirmPassword = !hideConfirmPassword" class="auth-toggle-pwd"
+          <button type="button" (click)="hideConfirmPassword.set(!hideConfirmPassword)" class="auth-toggle-pwd"
                   aria-label="Показать или скрыть подтверждение пароля">
-            @if (hideConfirmPassword) {
+            @if (hideConfirmPassword()) {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path
                 d="M12 7C14.76 7 17 9.24 17 12C17 12.65 16.87 13.26 16.64 13.83L19.56 16.75C21.07 15.49 22.26 13.86 22.99 12C21.26 7.61 16.99 4.5 11.99 4.5C10.59 4.5 9.25 4.75 8 5.2L10.17 7.35C10.74 7.13 11.35 7 12 7ZM2 4.27L4.28 6.55L4.73 7C3.08 8.3 1.78 10.02 1 12C2.73 16.39 7 19.5 12 19.5C13.55 19.5 15.03 19.2 16.38 18.66L16.8 19.08L19.73 22L21 20.73L3.27 3L2 4.27ZM7.53 9.8L9.08 11.35C9.03 11.56 9 11.78 9 12C9 13.66 10.34 15 12 15C12.22 15 12.44 14.97 12.65 14.92L14.2 16.47C13.53 16.8 12.79 17 12 17C9.24 17 7 14.76 7 12C7 11.21 7.2 10.47 7.53 9.8ZM11.84 9.02L14.99 12.17L15.02 12C15.02 10.35 13.67 9 12 9L11.84 9.02Z"
                 fill="currentColor"/></svg>

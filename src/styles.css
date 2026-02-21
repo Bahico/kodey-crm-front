@@ -17,6 +17,8 @@
   --color-bg-page: #030303;
   --color-bg-panel: #090909;
   --color-bg-panel-alt: #000c31;
+  --color-bg-dropdown: #151515;
+  --color-bg-item-hover: #FFFFFF05;
   --color-text-primary: #fff;
   --color-text-secondary: #7d7d85;
   --color-text-muted: #e5e5ea;
@@ -35,6 +37,8 @@
   --color-bg-page: #f5f5f7;
   --color-bg-panel: #ffffff;
   --color-bg-panel-alt: #e8f4fc;
+  --color-bg-dropdown: #fff;
+  --color-bg-item-hover: #fff;
   --color-text-primary: #1d1d1f;
   --color-text-secondary: #6e6e73;
   --color-text-muted: #424245;
@@ -49,9 +53,16 @@
   --color-toggle-icon-hover: #1d1d1f;
 }
 
+@theme {
+  --color-primary: var(--color-text-primary);
+}
+
 /* Default: dark theme if no preference */
 :root {
   color-scheme: dark;
+  --tui-background-elevation-3: var(--color-bg-dropdown);
+  --tui-background-neutral-1: var(--color-bg-item-hover);
+  --tui-text-primary: var(--color-text-primary);
 }
 
 [data-theme="light"] {
@@ -137,7 +148,7 @@
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  color: var(--color-icon);
+  color: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
