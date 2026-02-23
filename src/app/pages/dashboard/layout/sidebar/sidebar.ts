@@ -7,6 +7,7 @@ import { documentJustifyCenterIcon } from '@/svg/document-justify-center';
 import { exitIcon } from '@/svg/exit';
 import { folderIcon } from '@/svg/folder';
 import { logoKodeyIcon } from '@/svg/logo-kodey';
+import { SIDEBAR_ITEMS } from './sidebar-items';
 
 export interface SidebarNavItem {
   path: string;
@@ -28,11 +29,7 @@ export class SidebarComponent {
     avatarUrl: undefined,
   });
 
-  readonly navItems = computed<SidebarNavItem[]>(() => [
-    { path: '', label: 'Мои задачи', icon: 'document-justify-center', exact: true },
-    { path: 'finances', label: 'Финансы', icon: 'card' },
-    { path: 'regulations', label: 'Регламенты и советы', icon: 'folder' },
-  ]);
+  readonly navItems = SIDEBAR_ITEMS;
 
   userAvatar = computed(() => {
     const url = this.user().avatarUrl;

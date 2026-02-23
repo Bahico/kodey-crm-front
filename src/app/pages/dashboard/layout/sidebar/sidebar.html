@@ -3,7 +3,7 @@
   aria-label="Боковое меню"
 >
   <!-- Логотип -->
-  <div class="flex items-center gap-3 px-8 pt-5 h-[100px] border-b-2 border-[#28292D]">
+  <div class="flex items-center gap-3 px-8 pt-5 h-[100px] border-b-2 border-[#28292D] cursor-pointer" routerLink="/">
     <svg-icon key="logo-kodey" class="text-[#009AFF]" size="xl" />
     <span class="font-bold text-[#009AFF] text-[35px] leading-tight tracking-[0.03em] uppercase" style="font-family: Porkys, sans-serif">
       kodey CRM
@@ -29,7 +29,7 @@
 
   <!-- Навигация -->
   <nav class="flex flex-1 flex-col gap-4 px-8 pt-6" aria-label="Основное меню">
-    @for (item of navItems(); track item.path) {
+    @for (item of navItems; track item.path) {
       <a
         [routerLink]="item.path"
         routerLinkActive="bg-[#2A2D31]"

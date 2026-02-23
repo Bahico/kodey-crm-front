@@ -16,6 +16,10 @@ export default [
             {
                 path: 'regulations',
                 loadComponent: () => import('./pages/regulations/regulations'),
+            },
+            {
+                path: 'my-tasks',
+                loadComponent: () => import('./pages/my-tasks/my-tasks'),
             }
         ]
     }

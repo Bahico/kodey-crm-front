@@ -3,16 +3,12 @@
   role="banner"
 >
   <!-- Левая часть: Главная -->
-  <a
-    [routerLink]="homePath()"
-    routerLinkActive="cursor-default"
-    [routerLinkActiveOptions]="{ exact: false }"
+  <div
     class="flex items-center gap-3 transition-opacity hover:opacity-90"
-    [attr.aria-current]="isHomeActive() ? 'page' : null"
   >
-    <svg-icon key="home" class="h-8 w-8 shrink-0 text-[#DDDDDD]" size="lg" />
-    <span class="text-2xl font-medium text-[#DDDDDD]">Главная</span>
-  </a>
+    <svg-icon [key]="currentRoute().icon" class="h-8 w-8 shrink-0 text-[#DDDDDD]" size="lg" />
+    <span class="text-2xl font-medium text-[#DDDDDD]">{{ currentRoute().label }}</span>
+  </div>
 
   <!-- Правая часть: поиск, разделитель, уведомления, тема -->
   <div class="flex items-center gap-8">
