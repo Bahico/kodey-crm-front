@@ -1,0 +1,50 @@
+.wrapper {
+  display: flex;
+  height: 100%;
+  position: relative;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+
+  /* hide native scrollbar */
+  scrollbar-width: none;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar {
+  width: 28px;
+  //background: #0f172a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrow {
+  background: transparent;
+  border: none;
+  color: #7D7D85;
+  height: 30px;
+  cursor: pointer;
+}
+
+.track {
+  flex: 1;
+  width: 4px;
+  //background: #1e293b;
+  position: relative;
+  border-radius: 10px;
+}
+
+.thumb {
+  position: absolute;
+  width: 100%;
+  background: #7D7D85;
+  border-radius: 10px;
+  cursor: pointer;
+}

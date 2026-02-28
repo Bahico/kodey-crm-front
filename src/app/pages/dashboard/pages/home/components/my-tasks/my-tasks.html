@@ -1,0 +1,184 @@
+<div class="card-header flex flex-col gap-4">
+  <div class="flex items-center justify-between w-full gap-4 px-4">
+    <div class="flex items-center gap-7">
+      <div
+        class="tasks-tap-item"
+        [class.tasks-tap-item-active]="activeTab() === 'my-tasks'"
+        (click)="setTab('my-tasks')"
+      >
+        <svg-icon key="document-justify-center" size="lg" />
+        <span class="card-title font-medium text-xl">Мои задачи</span>
+      </div>
+      <div
+        class="tasks-tap-item"
+        [class.tasks-tap-item-active]="activeTab() === 'archive'"
+        (click)="setTab('archive')"
+      >
+        <svg-icon key="document-justify-center" size="lg" />
+        <span class="text-xl font-normal">Архив задач</span>
+      </div>
+    </div>
+
+    <div class="flex items-center">
+      <p class="text-right text-sm text-(--color-text-secondary) px-4 -mt-2">
+        Последнее обновление<br />{{ lastUpdated() }}
+      </p>
+      <button
+        type="button"
+        class="flex items-center gap-3 rounded-xl bg-(--color-accent) px-4 py-3 text-[16px] font-medium text-white transition-opacity hover:opacity-90"
+        (click)="refresh()"
+      >
+        <svg class="size-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 3v5h5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Обновить задачи
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<div class="flex min-h-0 max-h-[70vh]">
+  <custom-scrollbar>
+    <div class="flex flex-col gap-4 px-4 py-4">
+      @for (task of tasks(); track task.id) {
+        <article
+          class="flex items-stretch gap-3 rounded-xl border border-[#30343C] bg-[#20242C] p-5"
+          tuiDropdownContext
+          [tuiDropdown]="content"
+          (tuiDropdownOpenChange)="onChangeDropDown($event, task)"
+        >
+          <div
+            class="flex shrink-0 size-7 items-center justify-center rounded-full border text-[#009AFF40]"
+            [class.border-[#009AFF40]]="!task.completed"
+            [class.bg-[#009AFF]]="task.completed"
+            [class.text-white]="task.completed"
+            [class.border-none]="task.completed"
+          >
+            <svg-icon key="task-check" />
+          </div>
+          <div class="flex flex-1 min-w-0 justify-between gap-4">
+            <div class="flex flex-col gap-4 min-w-0">
+              <p class="text-[20px] font-medium leading-snug text-(--color-text-primary)">
+                {{ task.title }}
+              </p>
+              <div class="flex flex-wrap items-center gap-4 text-base text-[#DDDDDD]">
+                <span>{{ task.projectName }}</span>
+                @if (task.dueDate) {
+                  <span class="flex items-center gap-2">
+                    <svg class="size-5 shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <rect x="2" y="3" width="16" height="15" rx="2"/>
+                      <path d="M2 8h16M7 2v4M13 2v4"/>
+                    </svg>
+                    {{ task.dueDate }}
+                  </span>
+                }
+              </div>
+            </div>
+            <div class="flex shrink-0 flex-col items-end justify-between gap-4">
+              <span
+                class="size-8"
+                [class.text-(--color-text-secondary)]="task.starred"
+                [class.text-(--color-accent)]="!task.starred"
+                aria-hidden="true"
+              >
+                <svg class="size-8" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+                  <path d="M16 4l4 8 8 1-6 6 2 9-8-4-8 4 2-9-6-6 8-1 4-8z"/>
+                </svg>
+              </span>
+              <span class="text-sm text-(--color-text-secondary)">
+                Последнее изменение: {{ task.lastModified }}
+              </span>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </custom-scrollbar>
+</div>
+
+<ng-template #content>
+    <tui-data-list tuiDataListDropdownManager>
+      <tui-opt-group>
+        <button tuiOption class="justify-start!">
+          <svg-icon key="calendar" class="mr-2" />
+          Со сроком сегодня
+        </button>
+        <button tuiOption class="justify-start!">
+          <svg-icon key="calendar" class="mr-2" />
+          Со сроком завтра
+        </button>
+        <button tuiOption>
+          <svg-icon key="calendar" class="mr-2" />
+          На следующей неделе
+        </button>
+        <button
+          iconEnd="@tui.chevron-right"
+          tuiDropdownAlign="right"
+          tuiDropdownLimitWidth="auto"
+          tuiDropdownManual
+          tuiDropdownSided
+          tuiOption
+          type="button"
+          [tuiDropdown]="calendar"
+          [tuiDropdownOffset]="10"
+        >
+          <svg-icon key="calendar" class="mr-2" />
+          Выбрать дату
+        </button>
+      </tui-opt-group>
+
+      <tui-opt-group>
+        <button
+          tuiOption
+          iconEnd="@tui.chevron-right"
+          tuiDropdownAlign="right"
+          tuiDropdownLimitWidth="auto"
+          tuiDropdownManual
+          tuiDropdownSided
+          type="button"
+          [tuiDropdown]="transferTask"
+          [tuiDropdownOffset]="10"
+          class="justify-start!"
+        >
+          <svg-icon key="profile" class="mr-2" />
+          Передать задачу
+        </button>
+      </tui-opt-group>
+
+      <tui-opt-group>
+        <button tuiOption class="justify-start! text-[#CC1010]!">
+          <svg-icon key="delete" class="mr-2" />
+          Удалить задачу
+        </button>
+      </tui-opt-group>
+
+    </tui-data-list>
+
+    <ng-template #calendar>
+      <tui-calendar
+        [value]="dateValue"
+        (dayClick)="onDayClick($event)"
+        (mousedown.zoneless.prevent)="0"
+      />
+    </ng-template>
+
+    <ng-template #transferTask>
+      <div class="flex flex-col gap-2 p-2">
+        <span class="text-secondary">Выберите исполнителя</span>
+        <div class="flex flex-col gap-2 max-h-800 overflow-y-auto">
+          @for (_ of [0, 1, 2, 3, 4, 5]; track $index) {
+            <div class="flex gap-1 items-center py-1 px-2 rounded-lg cursor-pointer" [class.bg-[#1A1A1A]]="$first">
+              <svg-icon key="position" size="lg" class="text-[#7D7D85]" [class.text-[#009AFF]]="$first" />
+              <div class="dark:text-[#DDDDDD]">
+                Лазиз
+                <span class="dark:text-[#7D7D85]">{{ '@chatbotzero' }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </ng-template>
+
+</ng-template>

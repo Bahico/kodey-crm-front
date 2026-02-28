@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.tasks-tap-item {
+  @apply flex items-center gap-1 cursor-pointer select-none transition duration-100 text-[#7D7D85];
+}
+
+.tasks-tap-item-active {
+  @apply text-white;
+}

@@ -31,6 +31,8 @@
   --color-icon: #009aff;
   --color-toggle-icon: #7d7d85;
   --color-toggle-icon-hover: #fff;
+  --color-card: #1A1E24;
+  --color-simple-border: #28292D;
 }
 
 [data-theme="light"] {
@@ -51,11 +53,15 @@
   --color-icon: #0071e3;
   --color-toggle-icon: #6e6e73;
   --color-toggle-icon-hover: #1d1d1f;
+  --color-card: #F4F7F9;
+  --color-simple-border: #DDDDDD;
 }
 
 @theme {
   --color-primary: var(--color-text-primary);
+  --color-secondary: var(--color-text-secondary);
   --color-page: var(--color-bg-dropdown);
+  --color-simple-border: var(--color-simple-border);
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -66,6 +72,8 @@
   --tui-background-elevation-3: var(--color-bg-dropdown);
   --tui-background-neutral-1: var(--color-bg-item-hover);
   --tui-text-primary: var(--color-text-primary);
+  --tui-text-secondary: var(--color-text-secondary);
+  --tui-border-normal: var(--color-simple-border);
 }
 
 [data-theme="light"] {
@@ -231,4 +239,21 @@
 .auth-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.card {
+  background-color: var(--color-card);
+  border-radius: 20px;
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  @apply p-4 flex items-center justify-between border-b border-[#F0F2F4] dark:border-[#28292D];
+  color: var(--color-toggle-icon-hover);
+}
+
+.card-title {
+  @apply font-semibold text-lg;
 }
