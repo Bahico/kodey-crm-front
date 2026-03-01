@@ -1,4 +1,135 @@
-<div class="p-6">
-  <h1 class="text-2xl font-semibold text-white">Финансы</h1>
-  <p class="mt-2 text-[#7D7D85]">Раздел в разработке.</p>
+<div class="flex gap-4 p-4 h-42">
+  <div class="bg-card rounded-xl w-[60%] p-4 flex flex-col gap-2">
+    <h1 class="flex w-full mb-2 text-xl font-semibold">Общие доходы за год:</h1>
+
+    <div class="h-px w-full shrink-0 bg-[#28292D]" aria-hidden="true"></div>
+
+    <div class="flex gap-2">
+      @for (_ of [0, 1, 2, 3, 4, 5, 6]; track $index) {
+        <div
+          class="text-base flex items-center justify-center rounded-xl bg-item border border-item-border w-25 h-12.5 cursor-pointer hover:opacity-60 transition-opacity duration-300"
+          [ngClass]="{'bg-accent! text-white': activeYear() === $index}"
+          (click)="activeYear.set($index)"
+        >
+          {{ 2025 + $index }}
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="bg-card rounded-xl w-[calc(40%-16px)] flex flex-col justify-between p-4">
+    <h2 class="text-2xl font-semibold">Статистика:</h2>
+
+    <div class="flex flex-col gap-2 text-base font-semibold">
+      <div class="flex justify-between">
+        <span>Общий заработок на 2026 год:</span>
+        <span class="text-accent">20 241 $</span>
+      </div>
+      <div class="flex justify-between">
+        <span>Прогноз заработока:</span>
+        <span class="text-accent">51 241 $</span>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="flex gap-4 px-4 max-h-[calc(100%-178px)]">
+  @if (typeof activeYear() === 'number') {
+    <div class="w-150 flex bg-card rounded-xl">
+      <custom-scrollbar class="w-full">
+        <div class="flex flex-col gap-4 p-4">
+          @for (_ of [0, 1, 2, 3, 4, 5, 6, 7]; track $index) {
+            <div
+              class="bg-item border border-item-border w-full rounded-xl cursor-pointer"
+              [class.border-accent!]="activeMonth() === $index"
+              (click)="activeMonth.set($index)"
+            >
+              <div class="flex justify-between px-3 py-2 border-b border-item-border">
+                <span>Январь</span>
+                <span>Поступлений (4)</span>
+              </div>
+
+              <div class="flex justify-between px-3 py-2">
+                <div class="flex gap-2 items-center">
+                  <span>Доход:</span>
+                  <span>1 214 $</span>
+                </div>
+
+                <svg-icon key="right-square" />
+              </div>
+            </div>
+          }
+        </div>
+      </custom-scrollbar>
+    </div>
+  }
+  @if (typeof activeMonth() === 'number') {
+    <div class="w-[calc(100%-600px)]">
+      <div class="w-full flex bg-card rounded-xl">
+        <custom-scrollbar class="w-full">
+          <div class="flex justify-between px-4 py-2 items-center">
+            <h3 class="text-xl font-semibold">Общие доходы за месяц:   Январь</h3>
+
+            <button
+              class="rounded-xl bg-item border border-item-border w-10 h-10 flex items-center justify-center cursor-pointer"
+              [tuiDropdown]="projectsContent"
+              [tuiDropdownManual]="open()"
+              [tuiObscuredEnabled]="open()"
+              (click)="onClick()"
+              (tuiActiveZoneChange)="onActiveZone($event)"
+              (tuiObscured)="onObscured($event)"
+              [tuiDropdownMaxHeight]="600"
+            >
+              <svg-icon key="filter" />
+            </button>
+          </div>
+
+          <div class="flex flex-col gap-4 p-4">
+            @for (_ of [0, 1, 2, 3]; track $index) {
+              <div class="bg-item border border-item-border w-full rounded-xl flex flex-col gap-1 p-2">
+                <div class="flex justify-between items-center text-xs text-secondary">
+                  <span>01.01.2026</span>
+                  <span>~15:33</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span>Пополнение <span class="text-accent">Humo</span></span>
+                  <span class="text-accent">+ 200 $</span>
+                </div>
+                <div class="flex justify-between items-center text-xs text-secondary">
+                  <span>Проект: Diram wallet (в разработке)</span>
+                  <span>600$ / 800$ </span>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="flex justify-between pb-4 px-4">
+            <span class="text-base font-semibold">Всего:</span>
+            <span class="text-base font-semibold">800 $</span>
+          </div>
+        </custom-scrollbar>
+      </div>
+    </div>
+  }
+</div>
+
+<ng-template #projectsContent>
+  <div class="flex flex-col gap-4 p-3 w-50">
+    <span class="text-secondary">Выберите проект:</span>
+
+    <div class="flex flex-col gap-3">
+      @for (_ of [0, 1, 2, 3, 4, 5, 6]; track $index) {
+        <div class="flex gap-2 items-center">
+          <input
+            tuiCheckbox
+            type="checkbox"
+            [ngModel]="false"
+            size="s"
+            [id]="'project-'+$index"
+          />
+          <label class="text-primary" [for]="'project-'+$index">Проект №{{ $index + 1 }}</label>
+        </div>
+      }
+    </div>
+  </div>
+</ng-template>

@@ -3,7 +3,10 @@
     <ng-content></ng-content>
   </div>
 
-  <div class="scrollbar py-4 hidden md:flex">
+  <div
+    class="scrollbar py-4 hidden md:flex"
+    [class.hidden!]="thumbHeight() === 100"
+  >
     <button class="arrow" (click)="scrollUp()">
       <svg-icon key="scrollbar-up" size="md" />
     </button>
