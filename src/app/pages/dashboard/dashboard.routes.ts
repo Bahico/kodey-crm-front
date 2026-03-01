@@ -14,6 +14,18 @@ export default [
                 loadComponent: () => import('./pages/finances/finances'),
             },
             {
+                path: 'profile',
+                loadComponent: () => import('./pages/profile/profile'),
+            },
+            {
+                path: 'employees',
+                loadComponent: () => import('./pages/employees/employees'),
+            },
+            {
+                path: 'employees/:id',
+                loadComponent: () => import('./pages/employees/employee/employee'),
+            },
+            {
                 path: 'regulations',
                 loadComponent: () => import('./pages/regulations/regulations'),
             },

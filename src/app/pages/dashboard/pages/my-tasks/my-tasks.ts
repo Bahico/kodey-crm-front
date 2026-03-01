@@ -4,7 +4,6 @@ import HomeMyTasksComponent from '@/pages/dashboard/pages/home/components/my-tas
 @Component({
   templateUrl: 'my-tasks.html',
   selector: 'app-my-tasks',
-  host: {class: 'flex w-full'},
   imports: [
     HomeMyTasksComponent
   ]

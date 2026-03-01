@@ -1,13 +1,13 @@
-<div class="flex gap-4 p-4 h-42">
-  <div class="bg-card rounded-xl w-[60%] p-4 flex flex-col gap-2">
-    <h1 class="flex w-full mb-2 text-xl font-semibold">Общие доходы за год:</h1>
+<div class="flex flex-col md:flex-row gap-4 p-4 md:h-42">
+  <div class="bg-card rounded-xl w-full md:w-[60%] p-4 flex flex-col gap-2">
+    <h1 class="flex w-full mb-2 text-base md:text-xl font-semibold">Общие доходы за год:</h1>
 
     <div class="h-px w-full shrink-0 bg-[#28292D]" aria-hidden="true"></div>
 
-    <div class="flex gap-2">
+    <div class="flex gap-2 overflow-x-auto scrollbar-hide">
       @for (_ of [0, 1, 2, 3, 4, 5, 6]; track $index) {
         <div
-          class="text-base flex items-center justify-center rounded-xl bg-item border border-item-border w-25 h-12.5 cursor-pointer hover:opacity-60 transition-opacity duration-300"
+          class="text-base flex items-center justify-center rounded-xl bg-item border border-item-border min-w-18 w-18 md:w-25 h-10 md:h-12.5 cursor-pointer hover:opacity-60 transition-opacity duration-300"
           [ngClass]="{'bg-accent! text-white': activeYear() === $index}"
           (click)="activeYear.set($index)"
         >
@@ -17,10 +17,12 @@
     </div>
   </div>
 
-  <div class="bg-card rounded-xl w-[calc(40%-16px)] flex flex-col justify-between p-4">
-    <h2 class="text-2xl font-semibold">Статистика:</h2>
+  <div class="bg-card rounded-xl w-full md:w-[calc(40%-16px)] flex flex-col justify-between p-4">
+    <h2 class="text-base md:text-2xl font-semibold mb-2 md:mb-0">Статистика:</h2>
 
-    <div class="flex flex-col gap-2 text-base font-semibold">
+    <div class="md:hidden h-px w-full shrink-0 bg-[#28292D] mb-2" aria-hidden="true"></div>
+
+    <div class="flex flex-col gap-1 text-sm md:text-base font-semibold">
       <div class="flex justify-between">
         <span>Общий заработок на 2026 год:</span>
         <span class="text-accent">20 241 $</span>
@@ -33,12 +35,12 @@
   </div>
 </div>
 
-<div class="flex gap-4 px-4 max-h-[calc(100%-178px)]">
+<div class="flex flex-col md:flex-row gap-4 px-4 md:max-h-[calc(100%-178px)]">
   @if (typeof activeYear() === 'number') {
-    <div class="w-150 flex bg-card rounded-xl">
+    <div class="w-full md:w-150 max-h-[50vh] md:max-h-auto flex bg-card rounded-xl">
       <custom-scrollbar class="w-full">
-        <div class="flex flex-col gap-4 p-4">
-          @for (_ of [0, 1, 2, 3, 4, 5, 6, 7]; track $index) {
+        <div class="flex flex-col gap-4 p-3 md:p-4">
+          @for (_ of [0, 1, 2, 3]; track $index) {
             <div
               class="bg-item border border-item-border w-full rounded-xl cursor-pointer"
               [class.border-accent!]="activeMonth() === $index"
@@ -64,14 +66,14 @@
     </div>
   }
   @if (typeof activeMonth() === 'number') {
-    <div class="w-[calc(100%-600px)]">
+    <div class="w-full md:w-[calc(100%-600px)]">
       <div class="w-full flex bg-card rounded-xl">
         <custom-scrollbar class="w-full">
-          <div class="flex justify-between px-4 py-2 items-center">
-            <h3 class="text-xl font-semibold">Общие доходы за месяц:   Январь</h3>
+          <div class="flex justify-between px-4 mt-3 items-center">
+            <h3 class="text-base md:text-xl font-semibold">Общие доходы за месяц:   Январь</h3>
 
             <button
-              class="rounded-xl bg-item border border-item-border w-10 h-10 flex items-center justify-center cursor-pointer"
+              class="rounded-xl bg-item border border-item-border w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer"
               [tuiDropdown]="projectsContent"
               [tuiDropdownManual]="open()"
               [tuiObscuredEnabled]="open()"
@@ -80,7 +82,7 @@
               (tuiObscured)="onObscured($event)"
               [tuiDropdownMaxHeight]="600"
             >
-              <svg-icon key="filter" />
+              <svg-icon key="filter" [size]="btnSize()" />
             </button>
           </div>
 
@@ -103,7 +105,7 @@
             }
           </div>
 
-          <div class="flex justify-between pb-4 px-4">
+          <div class="flex justify-between pb-3 md:pb-4 px-4">
             <span class="text-base font-semibold">Всего:</span>
             <span class="text-base font-semibold">800 $</span>
           </div>

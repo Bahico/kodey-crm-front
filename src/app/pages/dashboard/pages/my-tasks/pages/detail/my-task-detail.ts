@@ -28,7 +28,6 @@ export default class MyTaskDetailPage {
   private readonly rbs = inject(ResponsiveBreakpointsService);
   private readonly dialogs = inject(DialogService);
 
-
   protected readonly btnSize = this.rbs.btnSize;
   protected readonly open = signal(false);
 

@@ -1,0 +1,13 @@
+<div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 p-4">
+  @for (_ of employees; track $index) {
+    <div class="flex flex-col p-2 rounded-lg bg-card items-center cursor-pointer" [routerLink]="['/employees', $index]">
+      <img src="images/avatar/bahico.png" alt="" class="w-full h-45 object-cover rounded-lg">
+
+      <div class="flex flex-col gap-0.5 mt-2 w-full">
+        <span class="text-accent">Frontend Developer</span>
+        <span class="text-base">Ikromiddinov Bahodirjon</span>
+        <span class="text-secondary">{{ '@bahico' }}</span>
+      </div>
+    </div>
+  }
+</div>

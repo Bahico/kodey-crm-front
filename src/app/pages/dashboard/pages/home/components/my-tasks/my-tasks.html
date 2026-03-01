@@ -25,7 +25,7 @@
       </p>
       <button
         type="button"
-        class="flex items-center justify-center min-w-8 h-8 gap-3 rounded-xl bg-(--color-accent) md:px-4 md:py-3 text-white transition-opacity hover:opacity-90"
+        class="flex items-center justify-center min-w-8 h-8 md:h-12 gap-3 rounded-xl bg-(--color-accent) md:px-4 text-white transition-opacity hover:opacity-90"
         (click)="refresh()"
       >
         <svg-icon key="refresh" [size]="btnSize()"/>
@@ -81,8 +81,8 @@
             <svg-icon key="task-check"/>
           </div>
           <div class="flex flex-1 min-w-0 justify-between gap-4">
-            <div class="flex flex-col gap-4 min-w-0">
-              <div class="flex justify-between">
+            <div class="flex flex-col w-full gap-4 min-w-0">
+              <div class="flex justify-between w-full">
                 <div class="flex gap-2">
                   <div
                     class="flex md:hidden shrink-0 size-7 items-center justify-center rounded-full border text-[#009AFF40]"

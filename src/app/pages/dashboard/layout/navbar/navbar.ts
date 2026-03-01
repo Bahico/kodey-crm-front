@@ -16,6 +16,10 @@ import {cardIcon} from '@/svg/card';
 import {folderIcon} from '@/svg/folder';
 import {logoKodeyIcon} from '@/svg/logo-kodey';
 import {ResponsiveBreakpointsService} from '@/services/responsive-breakpoints.service';
+import {profileIcon} from '@/svg/profile';
+import {profilePlusIcon} from '@/svg/profile-plus';
+import {profileSidebarIcon} from '@/svg/profile-sidebar';
+import {employeesIcon} from '@/svg/employees';
 
 @Component({
   templateUrl: 'navbar.html',
@@ -62,6 +66,8 @@ export class NavbarComponent {
       cardIcon,
       folderIcon,
       logoKodeyIcon,
+      profileSidebarIcon,
+      employeesIcon
     ]);
   }
 

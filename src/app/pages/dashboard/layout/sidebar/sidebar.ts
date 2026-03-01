@@ -1,19 +1,16 @@
 import {Component, computed, inject, signal} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
-import { injectRegisterIcons } from '@ngneat/svg-icon';
-import { SvgIconComponent } from '@ngneat/svg-icon';
-import { cardIcon } from '@/svg/card';
-import { documentJustifyCenterIcon } from '@/svg/document-justify-center';
-import { exitIcon } from '@/svg/exit';
-import { folderIcon } from '@/svg/folder';
-import { logoKodeyIcon } from '@/svg/logo-kodey';
-import { SIDEBAR_ITEMS } from './sidebar-items';
+import {SvgIconComponent} from '@ngneat/svg-icon';
+import {SIDEBAR_ITEMS} from './sidebar-items';
+import {AccountService} from '@/services/account.service';
 
 export interface SidebarNavItem {
   path: string;
   label: string;
   icon: string;
   exact?: boolean;
+  class?: string;
+  admin?: boolean;
 }
 
 @Component({
@@ -23,17 +20,18 @@ export interface SidebarNavItem {
 })
 export class SidebarComponent {
   private readonly router = inject(Router);
-
-  readonly user = signal<{ fullName: string; username: string; role: string; avatarUrl?: string }>({
-    fullName: 'Виктор Котов',
-    username: '@viktrkotov',
-    role: 'Дизайнер',
-    avatarUrl: undefined,
-  });
+  private readonly accountService = inject(AccountService);
 
   readonly navItems = SIDEBAR_ITEMS;
 
-  userAvatar = computed(() => {
+  protected readonly isAdmin = this.accountService.isAdmin;
+  protected readonly user = signal<{ fullName: string; username: string; role: string; avatarUrl?: string }>({
+    fullName: 'Ikromiddinov Bahodirjon',
+    username: '@bahico',
+    role: 'Frontend Developer',
+    avatarUrl: 'images/avatar/bahico.png',
+  });
+  protected readonly userAvatar = computed(() => {
     const url = this.user().avatarUrl;
     return url ? `url(${url})` : 'none';
   });
