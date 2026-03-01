@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import {Component, computed, inject, ViewEncapsulation} from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ThemeToggleComponent } from '@/shared/components/theme-toggle/theme-toggle.component';
@@ -10,6 +10,7 @@ import { filter, map } from 'rxjs';
   templateUrl: './auth-layout.html',
   styleUrl: './auth-layout.css',
   selector: 'app-auth-layout',
+  encapsulation: ViewEncapsulation.None,
   imports: [RouterOutlet, ThemeToggleComponent],
 })
 export class AuthLayoutComponent {

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   templateUrl: 'regulations.html',
   selector: 'app-regulations',
 })
-export default class RegulationsComponent {}
+export default class RegulationsComponent {
+}

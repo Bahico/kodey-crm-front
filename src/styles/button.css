@@ -1,0 +1,7 @@
+.c-btn {
+  @apply bg-item text-primary rounded-lg flex items-center justify-center h-8 cursor-pointer;
+}
+
+.c-btn-primary {
+  @apply bg-accent text-white rounded-lg flex items-center justify-center h-8 cursor-pointer;
+}

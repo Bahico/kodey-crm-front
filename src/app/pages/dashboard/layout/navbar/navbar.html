@@ -1,28 +1,28 @@
 <header
-  class="flex h-[100px] shrink-0 items-center justify-between border-b-2 border-[#28292D] bg-[#181A1E] px-6"
+  class="flex h-25 w-full shrink-0 items-center justify-between dark:border-b-2 border-[#28292D] bg-(--color-layout-bg) px-6"
   role="banner"
 >
   <!-- Левая часть: Главная -->
   <div
-    class="flex items-center gap-3 transition-opacity hover:opacity-90"
+    class="flex items-center gap-3 transition-opacity hover:opacity-90 text-black dark:text-[#DDDDDD]"
   >
-    <svg-icon [key]="currentRoute().icon" class="h-8 w-8 shrink-0 text-[#DDDDDD]" size="lg" />
-    <span class="text-2xl font-medium text-[#DDDDDD]">{{ currentRoute().label }}</span>
+    <svg-icon [key]="currentRoute().icon" class="h-8 w-8 shrink-0" size="lg"/>
+    <span class="text-2xl font-medium">{{ currentRoute().label }}</span>
   </div>
 
   <!-- Правая часть: поиск, разделитель, уведомления, тема -->
   <div class="flex items-center gap-8">
     <!-- Поле поиска -->
     <div
-      class="flex h-12 w-[476px] max-w-full items-center gap-3 rounded-xl border border-[#4E5258] bg-[#20242C] pl-[15px] pr-4"
+      class="flex h-12 w-119 max-w-full items-center gap-3 rounded-xl border border-simple-border dark:bg-[#20242C] pl-3.75 pr-4"
     >
-      <svg-icon key="search" class="h-6 w-6 shrink-0 text-[#7D7D85]" size="md" />
+      <svg-icon key="search" class="h-6 w-6 shrink-0 text-secondary" size="md"/>
       <input
         type="search"
         [placeholder]="searchPlaceholder()"
         [value]="searchQuery()"
-          (input)="searchQuery.set($any($event.target).value)"
-        class="min-w-0 flex-1 bg-transparent text-base text-white placeholder:text-[#7D7D85] focus:outline-none"
+        (input)="searchQuery.set($any($event.target).value)"
+        class="min-w-0 flex-1 bg-transparent text-base text-primary placeholder:text-[#7D7D85] focus:outline-none"
         aria-label="Поиск по сайту"
         autocomplete="off"
       />
@@ -30,21 +30,41 @@
 
     <div class="h-10 w-px shrink-0 bg-[#7D7D85]" aria-hidden="true"></div>
 
+    <!-- Переключатель темы -->
+    <div
+      class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-simple-border dark:bg-[#20242C]"
+    >
+      <app-theme-toggle/>
+    </div>
+
     <!-- Кнопка уведомлений -->
     <button
       type="button"
-      class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#4E5258] bg-[#20242C] text-[#DDDDDD] transition-colors hover:bg-[#2A2C30]"
-      (click)="onNotificationsClick()"
+      class="flex h-12 w-12 shrink-0 items-center justify-center cursor-pointer rounded-xl border border-simple-border dark:bg-[#20242C] text-primary transition-colors hover:bg-[#2A2C30]"
       aria-label="Уведомления"
+      [tuiDropdown]="notificationContent"
+      [tuiDropdownManual]="open()"
+      [tuiObscuredEnabled]="open()"
+      (click)="onClick()"
+      (tuiActiveZoneChange)="onActiveZone($event)"
+      (tuiObscured)="onObscured($event)"
+      [tuiDropdownMaxHeight]="600"
     >
       <svg-icon key="notification" class="h-6 w-6" size="lg"/>
     </button>
-
-    <!-- Переключатель темы -->
-    <div
-      class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#4E5258] bg-[#20242C]"
-    >
-      <app-theme-toggle />
-    </div>
   </div>
 </header>
+
+<ng-template #notificationContent>
+  <div class="flex flex-col gap-2 max-h-[80vh] overflow-y-auto w-150 p-3">
+    @for (_ of [0, 1, 2, 3, 4, 5, 6, 7]; track $index) {
+      <div class="flex justify-between w-full rounded-xl bg-item border px-2 py-3 border-item-border">
+        <div class="flex gap-2 items-center">
+          <span class="min-w-2 w-2 h-2 flex rounded-full bg-accent"></span>
+          <span class="text-primary font-semibold">Ваши задачи были обновлены 15:09 14.01.2026</span>
+        </div>
+        <span class="text-secondary">01.01.2026</span>
+      </div>
+    }
+  </div>
+</ng-template>

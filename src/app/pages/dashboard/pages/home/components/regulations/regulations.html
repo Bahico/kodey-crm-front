@@ -1,0 +1,30 @@
+<!-- Шапка -->
+<div class="card-header">
+  <div class="flex items-center gap-3 text-primary">
+    <svg-icon key="document-justify-center" size="lg" class="size-7 shrink-0"/>
+    <h2 class="text-xl font-medium leading-tight">Нормативы</h2>
+  </div>
+  <button
+    type="button"
+    class="flex size-8 shrink-0 items-center justify-center rounded-lg text-[#7D7D85] dark:text-white cursor-pointer"
+    aria-label="Развернуть"
+  >
+    <svg-icon key="right-square" size="md"/>
+  </button>
+</div>
+
+<div class="flex min-h-0 w-full overflow-x-auto scrollbar-hide gap-3 px-5 pt-4 pb-4">
+  @for (post of posts(); track post.id) {
+    <div
+      class="flex flex-col gap-2 min-w-54 w-54"
+    >
+      <img src="images/bot/test-post.png" alt="" class="w-full h-38 object-cover rounded-xl"/>
+      <div class="flex flex-col gap-0.5 py-1">
+        <span class="text-sm font-medium leading-tight text-primary truncate">{{ post.title }}</span>
+        @if (post.description) {
+          <p class="text-xs font-normal leading-tight text-secondary line-clamp-2">{{ post.description }}</p>
+        }
+      </div>
+    </div>
+  }
+</div>

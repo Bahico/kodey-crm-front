@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import {Component, input, signal} from '@angular/core';
 import {injectRegisterIcons, SvgIconComponent} from '@ngneat/svg-icon';
 import {documentJustifyCenterIcon} from '@/svg/document-justify-center';
 import {chevronUpIcon} from '@/svg/chevron-up';
@@ -6,25 +6,44 @@ import {chevronDownIcon} from '@/svg/chevron-down';
 import type {Task} from '@/shared/models/task.model';
 import {CustomScrollbar} from '@/shared/components/custom-scrollbar/custom-scrollbar';
 import {taskCheckIcon} from '@/svg/task-check';
-import {TuiCalendar, TuiDataList, TuiDropdown} from '@taiga-ui/core';
-import {TuiDataListDropdownManager} from '@taiga-ui/kit';
-import {TuiDay} from '@taiga-ui/cdk';
+import {TuiCalendar, TuiDataList, TuiDropdown, TuiOptGroup} from '@taiga-ui/core';
+import {TuiCheckbox, TuiDataListDropdownManager} from '@taiga-ui/kit';
+import {TuiActiveZone, TuiDay, TuiObscured} from '@taiga-ui/cdk';
 import {calendarIcon} from '@/svg/calendar';
 import {profileIcon} from '@/svg/profile';
 import {deleteIcon} from '@/svg/delete';
 import {positionIcon} from '@/svg/position';
+import {filterIcon} from '@/svg/filter';
+import {FormsModule} from '@angular/forms';
+import {RouterLink} from '@angular/router';
 
 @Component({
   templateUrl: 'my-tasks.html',
   selector: 'app-home-my-tasks',
   styleUrl: 'my-tasks.css',
-  host: {class: 'card'},
-  imports: [SvgIconComponent, CustomScrollbar, TuiDropdown, TuiDataList, TuiDataListDropdownManager, TuiCalendar],
+  host: {class: 'card h-full'},
+  imports: [
+    SvgIconComponent,
+    CustomScrollbar,
+    TuiDataListDropdownManager,
+    TuiDropdown,
+    TuiCalendar,
+    TuiOptGroup,
+    TuiObscured,
+    TuiActiveZone,
+    TuiCheckbox,
+    FormsModule,
+    TuiDataList,
+    RouterLink,
+  ],
 })
 export default class HomeMyTasksComponent {
+  openFilter = input(false);
+
   activeTab = signal<'my-tasks' | 'archive'>('my-tasks');
   lastUpdated = signal<string>('30.01.2026 15:30');
   activeTask = signal<Task | null>(null);
+  protected open = signal(false);
 
   protected dateValue: TuiDay = new TuiDay(2020, 0, 1);
 
@@ -76,6 +95,26 @@ export default class HomeMyTasksComponent {
       completed: false,
       starred: false,
     },
+    {
+      id: '4',
+      title:
+        'Проверить работоспособность кошелька, если не работает поставить на техническое обслуживание',
+      projectName: 'Проект "Diram Wallet"',
+      dueDate: 'Пт, 9 января',
+      lastModified: '30.01.2026',
+      completed: false,
+      starred: true,
+    },
+    {
+      id: '5',
+      title:
+        'Проверить работоспособность кошелька, если не работает поставить на техническое обслуж',
+      projectName: 'Проект "Diram Wallet"',
+      dueDate: 'Пт, 9 января',
+      lastModified: '30.01.2026',
+      completed: false,
+      starred: false,
+    },
   ]);
 
   constructor() {
@@ -87,7 +126,8 @@ export default class HomeMyTasksComponent {
       calendarIcon,
       profileIcon,
       deleteIcon,
-      positionIcon
+      positionIcon,
+      filterIcon
     ]);
   }
 
@@ -107,10 +147,18 @@ export default class HomeMyTasksComponent {
     );
   }
 
-  onChangeDropDown(event: boolean, task: Task): void {
-    if (event) {
-      this.activeTask.set(task);
+  protected onClick(): void {
+    this.open.set(!this.open());
+  }
+
+  protected onObscured(obscured: boolean): void {
+    if (obscured) {
+      this.open.set(false);
     }
+  }
+
+  protected onActiveZone(active: boolean): void {
+    this.open.set(active && this.open());
   }
 
   protected onDayClick(day: TuiDay): void {

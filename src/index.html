@@ -11,6 +11,9 @@
       try {
         var t = localStorage.getItem('kodey-theme');
         document.documentElement.setAttribute('data-theme', (t === 'light' || t === 'dark') ? t : 'dark');
+        if (t === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
       } catch (e) {
         document.documentElement.setAttribute('data-theme', 'dark');
       }

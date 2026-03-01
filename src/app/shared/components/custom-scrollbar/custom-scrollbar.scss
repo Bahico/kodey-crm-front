@@ -1,13 +1,14 @@
 .wrapper {
   display: flex;
   height: 100%;
+  width: 100%;
   position: relative;
 }
 
 .content {
   flex: 1;
   overflow-y: auto;
-  padding-right: 8px;
+  // padding-right: 8px;
 
   /* hide native scrollbar */
   scrollbar-width: none;

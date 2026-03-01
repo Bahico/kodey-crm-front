@@ -20,7 +20,11 @@ export default [
             {
                 path: 'my-tasks',
                 loadComponent: () => import('./pages/my-tasks/my-tasks'),
-            }
+            },
+            {
+                path: 'my-tasks/:id',
+                loadComponent: () => import('./pages/my-tasks/pages/detail/my-task-detail'),
+            },
         ]
     }
 ] satisfies Routes;

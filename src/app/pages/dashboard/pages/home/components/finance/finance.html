@@ -1,0 +1,66 @@
+<!-- Шапка -->
+<div class="card-header">
+  <div class="flex items-center gap-3 text-primary">
+    <svg-icon key="card" size="lg" class="size-7 shrink-0"/>
+    <h2 class="text-xl font-medium leading-tight">Финансы</h2>
+  </div>
+  <button
+    type="button"
+    class="flex size-8 shrink-0 items-center justify-center text-[#7D7D85] dark:text-white cursor-pointer"
+    aria-label="Развернуть"
+  >
+    <svg-icon key="right-square" size="md"/>
+  </button>
+</div>
+
+<custom-scrollbar class="max-h-[calc(100%-64px)]">
+  <!-- Статистика заработка -->
+  <div class="px-5 pt-4">
+    <p class="text-base font-normal leading-tight text-(--color-text-secondary)">Статистика заработка (2026 год)</p>
+  </div>
+
+  <!-- График по месяцам -->
+  <div class="flex items-end gap-2 px-5 pt-3 pb-2 overflow-x-auto scrollbar-hide">
+    @for (month of chartData(); track month.label) {
+      <div class="flex w-15.25 shrink-0 flex-col items-center gap-2">
+        <div class="flex h-32.5 w-full flex-col justify-end">
+          <div class="w-full rounded-lg bg-(--color-accent) transition-[height]"
+               [style.height.px]="month.value ? (month.value / chartMax()) * 130 : 0"></div>
+        </div>
+        <div class="flex flex-col items-center gap-0.5 text-center">
+          @if (month.value) {
+            <span class="text-xs font-bold leading-tight text-primary">{{ month.value }}$</span>
+          }
+          <span class="text-sm font-normal leading-tight text-(--color-text-secondary)">{{ month.label }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Разделитель перед выплатами -->
+  <div class="mx-3.5 mt-4 h-px w-[calc(100%-28px)] shrink-0 bg-[#F0F2F4] dark:bg-[#28292D]" aria-hidden="true"></div>
+
+  <!-- Выплаты в этом месяце -->
+  <div class="flex flex-1 min-h-0 flex-col gap-2 px-5 pt-4 pb-4">
+    <p class="text-base font-normal leading-tight text-(--color-text-secondary)">Выплаты в этом месяце</p>
+    <div class="flex min-h-0 flex-col gap-3 overflow-y-auto">
+      @for (payment of payments(); track payment.id) {
+        <div
+          class="flex shrink-0 items-center justify-between rounded-xl border border-[#F0F2F4] dark:border-[#30343C] bg-white dark:bg-[#20242C] px-4 py-3">
+          <div class="flex flex-col gap-1">
+            <span class="text-sm font-normal leading-tight text-(--color-text-secondary)">
+              {{ payment.date }}
+            </span>
+            <span class="text-base font-medium leading-tight text-primary">{{ payment.wallet }}</span>
+          </div>
+          <div class="flex flex-col items-end justify-center gap-1">
+            <span class="text-sm font-normal leading-tight text-(--color-text-secondary)">
+              {{ payment.time }}
+            </span>
+            <span class="text-base font-medium leading-tight text-[#26BF00] dark:text-[#33FF00]">{{ payment.amount }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</custom-scrollbar>
