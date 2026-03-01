@@ -4,5 +4,9 @@ export const serverRoutes: ServerRoute[] = [
   {
     path: '**',
     renderMode: RenderMode.Prerender
-  }
+  },
+  {
+    path: 'my-tasks/:id',
+    renderMode: RenderMode.Client
+  },
 ];
