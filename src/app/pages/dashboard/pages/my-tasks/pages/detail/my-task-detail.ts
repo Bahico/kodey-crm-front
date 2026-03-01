@@ -7,6 +7,9 @@ import {TuiDropdown} from '@taiga-ui/core';
 import {TuiActiveZone, TuiObscured} from '@taiga-ui/cdk';
 import {positionIcon} from '@/svg/position';
 import {ResponsiveBreakpointsService} from '@/services/responsive-breakpoints.service';
+import {ChangePerson} from '@/pages/dashboard/pages/my-tasks/components/change-person/change-person';
+import {DialogService} from '@/services/dialog.service';
+import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
 
 @Component({
   templateUrl: 'my-task-detail.html',
@@ -23,6 +26,7 @@ import {ResponsiveBreakpointsService} from '@/services/responsive-breakpoints.se
 })
 export default class MyTaskDetailPage {
   private readonly rbs = inject(ResponsiveBreakpointsService);
+  private readonly dialogs = inject(DialogService);
 
 
   protected readonly btnSize = this.rbs.btnSize;
@@ -49,5 +53,16 @@ export default class MyTaskDetailPage {
 
   protected onActiveZone(active: boolean): void {
     this.open.set(active && this.open());
+  }
+
+  changePerson() {
+    this.dialogs
+      .open(
+        new PolymorpheusComponent(ChangePerson),
+        {
+          size: 'm',
+        },
+      )
+      .subscribe();
   }
 }

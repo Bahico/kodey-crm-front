@@ -79,6 +79,7 @@
   --tui-border-normal: var(--color-simple-border);
   --tui-background-accent-1: var(--color-accent);
   --tui-background-accent-1-hover: var(--color-accent-hover);
+  --tui-background-elevation-1: var(--color-bg-dropdown);
 }
 
 [data-theme="light"] {

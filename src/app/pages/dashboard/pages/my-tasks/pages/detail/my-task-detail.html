@@ -16,7 +16,7 @@
         (tuiObscured)="onObscured($event)"
         [tuiDropdownMaxHeight]="600"
       >
-        <svg-icon key="edit" [size]="btnSize()"/>
+        <svg-icon key="edit" size="md"/>
       </button>
     </div>
 
@@ -56,7 +56,10 @@
             <span class="text-primary">Евгений <span class="text-secondary text-sm">{{ '@chatbotzero' }}</span></span>
           </div>
 
-          <button class="bg-accent text-white w-full py-2 flex items-center justify-center">
+          <button
+            (click)="changePerson()"
+            class="bg-accent text-white w-full py-2 flex items-center justify-center"
+          >
             Сменить ответственного
           </button>
         </div>

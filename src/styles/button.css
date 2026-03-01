@@ -3,5 +3,5 @@
 }
 
 .c-btn-primary {
-  @apply bg-accent text-white rounded-lg flex items-center justify-center h-8 cursor-pointer;
+  @apply bg-accent text-white rounded-xl flex items-center justify-center h-8 cursor-pointer;
 }
