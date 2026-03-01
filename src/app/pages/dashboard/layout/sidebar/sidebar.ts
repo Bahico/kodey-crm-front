@@ -1,5 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {Component, computed, inject, signal} from '@angular/core';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import { injectRegisterIcons } from '@ngneat/svg-icon';
 import { SvgIconComponent } from '@ngneat/svg-icon';
 import { cardIcon } from '@/svg/card';
@@ -22,6 +22,8 @@ export interface SidebarNavItem {
   imports: [RouterLink, RouterLinkActive, SvgIconComponent],
 })
 export class SidebarComponent {
+  private readonly router = inject(Router);
+
   readonly user = signal<{ fullName: string; username: string; role: string; avatarUrl?: string }>({
     fullName: 'Виктор Котов',
     username: '@viktrkotov',
@@ -36,17 +38,7 @@ export class SidebarComponent {
     return url ? `url(${url})` : 'none';
   });
 
-  constructor() {
-    injectRegisterIcons([
-      exitIcon,
-      documentJustifyCenterIcon,
-      cardIcon,
-      folderIcon,
-      logoKodeyIcon,
-    ]);
-  }
-
   logout(): void {
-    // TODO: вызов сервиса выхода и редирект на /auth
+    this.router.navigate(['/auth']);
   }
 }

@@ -1,7 +1,8 @@
-import { Component, computed, signal } from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import { injectRegisterIcons, SvgIconComponent } from '@ngneat/svg-icon';
 import { cardIcon } from '@/svg/card';
 import { CustomScrollbar } from "@/shared/components/custom-scrollbar/custom-scrollbar";
+import {ResponsiveBreakpointsService} from '@/services/responsive-breakpoints.service';
 
 export interface ChartMonth {
   label: string;
@@ -25,6 +26,10 @@ export interface Payment {
   imports: [SvgIconComponent, CustomScrollbar],
 })
 export default class HomeFinanceComponent {
+  private readonly rbs = inject(ResponsiveBreakpointsService);
+
+  protected readonly btnSize = this.rbs.btnSize;
+
   constructor() {
     injectRegisterIcons([cardIcon]);
   }

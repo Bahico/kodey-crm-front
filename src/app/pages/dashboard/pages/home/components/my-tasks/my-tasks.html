@@ -1,46 +1,42 @@
 <div class="card-header flex flex-col gap-4">
-  <div class="flex items-center justify-between w-full gap-4 px-4">
-    <div class="flex items-center gap-7">
+  <div class="flex items-center justify-between w-full md:px-4">
+    <div class="flex items-center gap-4 md:gap-7">
       <div
         class="tasks-tap-item"
         [class.text-primary!]="activeTab() === 'my-tasks'"
         (click)="setTab('my-tasks')"
       >
-        <svg-icon key="document-justify-center" size="lg"/>
-        <span class="card-title font-medium text-xl">Мои задачи</span>
+        <svg-icon key="document-justify-center" [size]="btnSize()"/>
+        <span class="card-title font-medium md:text-xl">Мои задачи</span>
       </div>
       <div
         class="tasks-tap-item"
         [class.text-primary!]="activeTab() === 'archive'"
         (click)="setTab('archive')"
       >
-        <svg-icon key="document-justify-center" size="lg"/>
-        <span class="text-xl font-normal">Архив задач</span>
+        <svg-icon key="document-justify-center" [size]="btnSize()"/>
+        <span class="text-base md:text-xl font-normal">Архив задач</span>
       </div>
     </div>
 
-    <div class="flex items-center gap-4">
-      <p class="text-right text-sm text-(--color-text-secondary)">
+    <div class="flex items-center gap-2 md:gap-4">
+      <p class="text-right text-sm text-secondary hidden md:block">
         Последнее обновление<br/>{{ lastUpdated() }}
       </p>
       <button
         type="button"
-        class="flex items-center gap-3 rounded-xl bg-(--color-accent) px-4 py-3 text-[16px] font-medium text-white transition-opacity hover:opacity-90"
+        class="flex items-center justify-center min-w-8 h-8 gap-3 rounded-xl bg-(--color-accent) md:px-4 md:py-3 text-white transition-opacity hover:opacity-90"
         (click)="refresh()"
       >
-        <svg class="size-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             aria-hidden="true">
-          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M3 3v5h5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Обновить задачи
+        <svg-icon key="refresh" [size]="btnSize()"/>
+        <span class="hidden md:block">Обновить задачи</span>
       </button>
       @if (openFilter()) {
-        <div class="h-10 w-px shrink-0 bg-[#7D7D85]" aria-hidden="true"></div>
+        <div class="hidden md:block h-10 w-px shrink-0 bg-[#7D7D85]" aria-hidden="true"></div>
 
         <button
           type="button"
-          class="flex h-12 w-12 shrink-0 items-center justify-center cursor-pointer rounded-xl border border-simple-border dark:bg-[#20242C] text-primary transition-colors hover:bg-[#2A2C30]"
+          class="flex w-8 h-8 md:h-12 md:w-12 shrink-0 items-center justify-center cursor-pointer rounded-xl border border-simple-border dark:bg-[#20242C] text-primary transition-colors hover:bg-[#2A2C30]"
           aria-label="Filter"
           [tuiDropdown]="projectsContent"
           [tuiDropdownManual]="open()"
@@ -50,10 +46,17 @@
           (tuiObscured)="onObscured($event)"
           [tuiDropdownMaxHeight]="600"
         >
-          <svg-icon key="filter" size="lg"/>
+          <svg-icon key="filter" [size]="btnSize()" />
         </button>
       }
     </div>
+  </div>
+
+  <div class="flex md:hidden w-full justify-between text-secondary">
+    <span>
+      Последнее обновление
+    </span>
+    <span>{{ lastUpdated() }}</span>
   </div>
 
 </div>
@@ -63,13 +66,13 @@
     <div class="flex flex-col gap-4 px-4 py-4">
       @for (task of tasks(); track task.id) {
         <article
-          class="flex items-stretch gap-3 rounded-xl cursor-pointer hover:shadow-md duration-200 border border-[#F0F2F4] dark:border-[#30343C] bg-white dark:bg-[#20242C]! p-5"
+          class="flex items-stretch gap-3 rounded-xl cursor-pointer hover:shadow-md duration-200 border border-[#F0F2F4] dark:border-[#30343C] bg-white dark:bg-[#20242C]! p-3 md:p-5"
           tuiDropdownContext
           [tuiDropdown]="content"
           [routerLink]="['/my-tasks', $index]"
         >
           <div
-            class="flex shrink-0 size-7 items-center justify-center rounded-full border text-[#009AFF40]"
+            class="hidden md:flex shrink-0 size-7 items-center justify-center rounded-full border text-[#009AFF40]"
             [class.border-[#009AFF40]]="!task.completed"
             [class.bg-[#009AFF]]="task.completed"
             [class.text-white]="task.completed"
@@ -79,37 +82,58 @@
           </div>
           <div class="flex flex-1 min-w-0 justify-between gap-4">
             <div class="flex flex-col gap-4 min-w-0">
-              <p class="text-[20px] font-medium leading-snug text-(--color-text-primary)">
-                {{ task.title }}
-              </p>
-              <div class="flex flex-wrap items-center gap-4 text-base text-[#7D7D85] dark:text-[#DDDDDD]">
-                <span>{{ task.projectName }}</span>
-                @if (task.dueDate) {
-                  <span class="flex items-center gap-2">
-                    <svg class="size-5 shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
-                         aria-hidden="true">
-                      <rect x="2" y="3" width="16" height="15" rx="2"/>
-                      <path d="M2 8h16M7 2v4M13 2v4"/>
-                    </svg>
-                    {{ task.dueDate }}
-                  </span>
-                }
+              <div class="flex justify-between">
+                <div class="flex gap-2">
+                  <div
+                    class="flex md:hidden shrink-0 size-7 items-center justify-center rounded-full border text-[#009AFF40]"
+                    [class.border-[#009AFF40]]="!task.completed"
+                    [class.bg-[#009AFF]]="task.completed"
+                    [class.text-white]="task.completed"
+                    [class.border-none]="task.completed"
+                  >
+                    <svg-icon key="task-check"/>
+                  </div>
+
+                  <p class="text-sm md:text-xl leading-snug text-primary">
+                    {{ task.title }}
+                  </p>
+                </div>
+
+
+                <span
+                  class="size-8"
+                  [class.text-[#F0F2F4]]="task.starred"
+                  [class.text-(--color-accent)]="!task.starred"
+                  aria-hidden="true"
+                >
+                  <svg class="size-8" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+                    <path d="M16 4l4 8 8 1-6 6 2 9-8-4-8 4 2-9-6-6 8-1 4-8z"/>
+                  </svg>
+                </span>
               </div>
-            </div>
-            <div class="flex shrink-0 flex-col items-end justify-between gap-4">
-              <span
-                class="size-8"
-                [class.text-[#F0F2F4]]="task.starred"
-                [class.text-(--color-accent)]="!task.starred"
-                aria-hidden="true"
-              >
-                <svg class="size-8" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-                  <path d="M16 4l4 8 8 1-6 6 2 9-8-4-8 4 2-9-6-6 8-1 4-8z"/>
-                </svg>
-              </span>
-              <span class="text-sm text-(--color-text-secondary)">
-                Последнее изменение: {{ task.lastModified }}
-              </span>
+
+              <div class="flex justify-between items-end">
+                <div class="flex flex-col md:flex-row flex-wrap md:items-center gap-1 md:gap-4 text-base text-[#7D7D85] dark:text-[#DDDDDD]">
+                  <span>{{ task.projectName }}</span>
+
+                  <span class="text-sm text-secondary md:hidden">
+                    Последнее изменение: {{ task.lastModified }}
+                  </span>
+                  @if (task.dueDate) {
+                    <span class="flex items-center gap-2">
+                      <svg class="size-5 shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                           aria-hidden="true">
+                        <rect x="2" y="3" width="16" height="15" rx="2"/>
+                        <path d="M2 8h16M7 2v4M13 2v4"/>
+                      </svg>
+                      {{ task.dueDate }}
+                  </span>
+                  }
+                </div>
+                <span class="text-sm text-secondary hidden md:block">
+                  Последнее изменение: {{ task.lastModified }}
+                </span>
+              </div>
             </div>
           </div>
         </article>
@@ -230,7 +254,7 @@
             size="s"
             [id]="'project-'+$index"
           />
-          <label class="text-primary" [for]="'project-'+$index">Проект №{{$index+1}}</label>
+          <label class="text-primary" [for]="'project-'+$index">Проект №{{ $index + 1 }}</label>
         </div>
       }
     </div>

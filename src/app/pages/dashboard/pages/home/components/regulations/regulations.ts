@@ -1,7 +1,8 @@
-import {Component, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {injectRegisterIcons, SvgIconComponent} from '@ngneat/svg-icon';
 import {documentJustifyCenterIcon} from '@/svg/document-justify-center';
 import {rightSquareIcon} from '@/svg/right-square';
+import {ResponsiveBreakpointsService} from '@/services/responsive-breakpoints.service';
 
 export interface Post {
   id: string;
@@ -19,6 +20,10 @@ export interface Post {
   imports: [SvgIconComponent],
 })
 export default class HomeRegulationsComponent {
+  private readonly rbs = inject(ResponsiveBreakpointsService);
+
+  protected readonly btnSize = this.rbs.btnSize;
+
   constructor() {
     injectRegisterIcons([documentJustifyCenterIcon, rightSquareIcon]);
   }

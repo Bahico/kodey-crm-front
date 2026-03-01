@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {injectRegisterIcons, SvgIconComponent} from '@ngneat/svg-icon';
 import {documentJustifyCenterIcon} from '@/svg/document-justify-center';
 import {editIcon} from '@/svg/edit';
@@ -6,6 +6,7 @@ import {rightSquareIcon} from '@/svg/right-square';
 import {TuiDropdown} from '@taiga-ui/core';
 import {TuiActiveZone, TuiObscured} from '@taiga-ui/cdk';
 import {positionIcon} from '@/svg/position';
+import {ResponsiveBreakpointsService} from '@/services/responsive-breakpoints.service';
 
 @Component({
   templateUrl: 'my-task-detail.html',
@@ -21,7 +22,11 @@ import {positionIcon} from '@/svg/position';
   }
 })
 export default class MyTaskDetailPage {
-  protected open = signal(false);
+  private readonly rbs = inject(ResponsiveBreakpointsService);
+
+
+  protected readonly btnSize = this.rbs.btnSize;
+  protected readonly open = signal(false);
 
   constructor() {
     injectRegisterIcons([

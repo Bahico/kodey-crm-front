@@ -1,9 +1,11 @@
+@import "tailwindcss";
+
 .theme-toggle {
+  @apply h-8 w-8 md:w-11 md:h-11;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
   padding: 0;
   border: none;
   border-radius: 10px;

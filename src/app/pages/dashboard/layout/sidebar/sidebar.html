@@ -32,9 +32,9 @@
     @for (item of navItems; track item.path) {
       <a
         [routerLink]="item.path"
-        routerLinkActive="bg-[#004572]"
+        routerLinkActive="bg-[#004572]/60"
         [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
-        class="flex items-center gap-3 rounded-lg px-2 py-2 text-white dark:text-[#DDDDDD] transition-colors hover:bg-[#004572]/60 dark:hover:bg-[#2A2D31]/70"
+        class="flex items-center gap-3 rounded-lg px-2 py-2 text-white dark:text-[#DDDDDD] transition-colors hover:bg-[#004572]/60 dark:hover:bg-(--color-bg-item-hover)"
       >
         <svg-icon [key]="item.icon" class="h-7 w-7 shrink-0" size="lg" />
         <span class="text-xl font-medium">{{ item.label }}</span>

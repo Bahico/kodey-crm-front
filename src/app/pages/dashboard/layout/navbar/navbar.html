@@ -1,38 +1,39 @@
 <header
-  class="flex h-25 w-full shrink-0 items-center justify-between dark:border-b-2 border-[#28292D] bg-(--color-layout-bg) px-6"
+  class="flex h-15 md:h-25 w-full shrink-0 items-center justify-between dark:border-b-2 border-[#28292D] bg-(--color-layout-bg) px-6"
   role="banner"
 >
   <!-- Левая часть: Главная -->
   <div
     class="flex items-center gap-3 transition-opacity hover:opacity-90 text-black dark:text-[#DDDDDD]"
   >
+    <svg-icon key="logo-kodey" class="text-[#009AFF] md:hidden!" size="lg" routerLink="/" />
     <svg-icon [key]="currentRoute().icon" class="h-8 w-8 shrink-0" size="lg"/>
-    <span class="text-2xl font-medium">{{ currentRoute().label }}</span>
+    <span class="text-sm md:text-2xl font-medium">{{ currentRoute().label }}</span>
   </div>
 
   <!-- Правая часть: поиск, разделитель, уведомления, тема -->
-  <div class="flex items-center gap-8">
+  <div class="flex items-center gap-2 md:gap-8">
     <!-- Поле поиска -->
     <div
-      class="flex h-12 w-119 max-w-full items-center gap-3 rounded-xl border border-simple-border dark:bg-[#20242C] pl-3.75 pr-4"
+      class="flex h-8 w-8 justify-center md:h-12 md:w-119 max-w-full items-center gap-3 rounded-xl border border-simple-border dark:bg-[#20242C] md:px-4"
     >
-      <svg-icon key="search" class="h-6 w-6 shrink-0 text-secondary" size="md"/>
+      <svg-icon key="search" class="h-6 w-6 shrink-0 text-secondary" [size]="btnSize()"/>
       <input
         type="search"
-        [placeholder]="searchPlaceholder()"
+        [placeholder]="searchPlaceholder"
         [value]="searchQuery()"
         (input)="searchQuery.set($any($event.target).value)"
-        class="min-w-0 flex-1 bg-transparent text-base text-primary placeholder:text-[#7D7D85] focus:outline-none"
+        class="min-w-0 flex-1 bg-transparent text-base text-primary placeholder:text-[#7D7D85] focus:outline-none hidden md:flex"
         aria-label="Поиск по сайту"
         autocomplete="off"
       />
     </div>
 
-    <div class="h-10 w-px shrink-0 bg-[#7D7D85]" aria-hidden="true"></div>
+    <div class="hidden md:block h-10 w-px shrink-0 bg-[#7D7D85]" aria-hidden="true"></div>
 
     <!-- Переключатель темы -->
     <div
-      class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-simple-border dark:bg-[#20242C]"
+      class="flex h-8 w-8 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-xl border border-simple-border dark:bg-[#20242C]"
     >
       <app-theme-toggle/>
     </div>
@@ -40,7 +41,7 @@
     <!-- Кнопка уведомлений -->
     <button
       type="button"
-      class="flex h-12 w-12 shrink-0 items-center justify-center cursor-pointer rounded-xl border border-simple-border dark:bg-[#20242C] text-primary transition-colors hover:bg-[#2A2C30]"
+      class="flex h-8 w-8 md:h-12 md:w-12 shrink-0 items-center justify-center cursor-pointer rounded-xl border border-simple-border dark:bg-[#20242C] text-primary transition-colors hover:bg-[#2A2C30]"
       aria-label="Уведомления"
       [tuiDropdown]="notificationContent"
       [tuiDropdownManual]="open()"
@@ -48,15 +49,60 @@
       (click)="onClick()"
       (tuiActiveZoneChange)="onActiveZone($event)"
       (tuiObscured)="onObscured($event)"
-      [tuiDropdownMaxHeight]="600"
+      [tuiDropdownMaxHeight]="700"
     >
-      <svg-icon key="notification" class="h-6 w-6" size="lg"/>
+      <svg-icon key="notification" class="h-6 w-6" [size]="btnSize()"/>
+    </button>
+
+    <button
+      type="button"
+      class="flex h-8 w-8 md:hidden shrink-0 items-center justify-center rounded-xl border border-simple-border dark:bg-[#20242C] text-primary transition-colors "
+      aria-label="Menu"
+      (click)="openNavbar.set(!openNavbar())"
+    >
+      <div
+        class="burger"
+        [class.active]="openNavbar()"
+      >
+        <span></span>
+      </div>
     </button>
   </div>
 </header>
 
+<div
+  class="md:hidden fixed z-9999 top-15 bottom-0 left-0 right-0 bg-[#090909] w-full flex flex-col justify-between px-2 py-3 -translate-x-full duration-300"
+  [class.translate-x-0!]="openNavbar()"
+>
+  <div class="flex flex-col gap-2">
+    @for (item of navItems; track item.path) {
+      <a
+        [routerLink]="item.path"
+        routerLinkActive="bg-(--color-bg-item-hover)"
+        [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+        class="flex items-center gap-3 rounded-lg px-2 py-2 text-white dark:text-[#DDDDDD] transition-colors dark:hover:bg-[#2A2D31]/70"
+      >
+        <svg-icon [key]="item.icon" class="h-7 w-7 shrink-0" size="lg" />
+        <span class="text-xl font-medium">{{ item.label }}</span>
+      </a>
+    }
+  </div>
+
+  <div class="px-2 py-2">
+    <button
+      type="button"
+      class="flex items-center gap-3 text-white transition-opacity hover:opacity-90"
+      (click)="logout()"
+      aria-label="Выйти из аккаунта"
+    >
+      <svg-icon key="exit" class="h-8 w-8 shrink-0" size="lg" />
+      <span class="text-xl font-medium">Выйти из аккаунта</span>
+    </button>
+  </div>
+</div>
+
 <ng-template #notificationContent>
-  <div class="flex flex-col gap-2 max-h-[80vh] overflow-y-auto w-150 p-3">
+  <div class="flex flex-col gap-2 overflow-y-auto w-full md:w-150 p-3">
     @for (_ of [0, 1, 2, 3, 4, 5, 6, 7]; track $index) {
       <div class="flex justify-between w-full rounded-xl bg-item border px-2 py-3 border-item-border">
         <div class="flex gap-2 items-center">

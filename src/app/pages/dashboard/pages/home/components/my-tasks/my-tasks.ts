@@ -1,4 +1,4 @@
-import {Component, input, signal} from '@angular/core';
+import {Component, inject, input, signal} from '@angular/core';
 import {injectRegisterIcons, SvgIconComponent} from '@ngneat/svg-icon';
 import {documentJustifyCenterIcon} from '@/svg/document-justify-center';
 import {chevronUpIcon} from '@/svg/chevron-up';
@@ -16,6 +16,8 @@ import {positionIcon} from '@/svg/position';
 import {filterIcon} from '@/svg/filter';
 import {FormsModule} from '@angular/forms';
 import {RouterLink} from '@angular/router';
+import {ResponsiveBreakpointsService} from '@/services/responsive-breakpoints.service';
+import {refreshIcon} from '@/svg/refresh';
 
 @Component({
   templateUrl: 'my-tasks.html',
@@ -38,12 +40,14 @@ import {RouterLink} from '@angular/router';
   ],
 })
 export default class HomeMyTasksComponent {
+  private readonly rbs = inject(ResponsiveBreakpointsService);
+
   openFilter = input(false);
 
-  activeTab = signal<'my-tasks' | 'archive'>('my-tasks');
-  lastUpdated = signal<string>('30.01.2026 15:30');
-  activeTask = signal<Task | null>(null);
-  protected open = signal(false);
+  protected readonly btnSize = this.rbs.btnSize;
+  protected readonly activeTab = signal<'my-tasks' | 'archive'>('my-tasks');
+  protected readonly lastUpdated = signal<string>('30.01.2026 15:30');
+  protected readonly open = signal(false);
 
   protected dateValue: TuiDay = new TuiDay(2020, 0, 1);
 
@@ -127,7 +131,8 @@ export default class HomeMyTasksComponent {
       profileIcon,
       deleteIcon,
       positionIcon,
-      filterIcon
+      filterIcon,
+      refreshIcon
     ]);
   }
 
