@@ -11,6 +11,8 @@ import {EditExpenses} from '@/pages/dashboard/pages/finances/components/edit-exp
 import {
   EditAdditionalIncome
 } from '@/pages/dashboard/pages/finances/components/edit-additional-income/edit-additional-income';
+import {checkIcon} from '@/svg/check';
+import {DriverComponent} from '@/shared/components/driver/driver';
 
 @Component({
   templateUrl: 'all-finance.html',
@@ -20,7 +22,8 @@ import {
   imports: [
     NgClass,
     CustomScrollbar,
-    SvgIconComponent
+    SvgIconComponent,
+    DriverComponent
   ]
 })
 export class AllFinance {
@@ -30,7 +33,7 @@ export class AllFinance {
   protected readonly activeMonth = signal<number>(0);
 
   constructor() {
-    injectRegisterIcons([editIcon])
+    injectRegisterIcons([editIcon, checkIcon])
   }
 
   openPayment(): void {
@@ -39,7 +42,7 @@ export class AllFinance {
       {
         size: 'm'
       }
-    )
+    ).subscribe()
   }
 
   openDebt(): void {
@@ -48,16 +51,16 @@ export class AllFinance {
       {
         size: 'm'
       }
-    )
+    ).subscribe()
   }
 
   openExpenses(): void {
     this.dialog.open(
       new PolymorpheusComponent(EditExpenses),
       {
-        size: 'm'
+        size: 'l'
       }
-    )
+    ).subscribe()
   }
 
   openAdditionalIncome(): void {
@@ -66,6 +69,6 @@ export class AllFinance {
       {
         size: 'm'
       }
-    )
+    ).subscribe()
   }
 }

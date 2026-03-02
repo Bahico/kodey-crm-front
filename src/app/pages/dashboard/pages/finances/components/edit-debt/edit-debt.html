@@ -1,0 +1,46 @@
+<h2 class="text-xl font-semibold text-primary">Редактирование Долг</h2>
+<span class="text-primary text-sm">Diram Wallet</span>
+
+<custom-scrollbar class="h-54">
+  <div class="flex flex-col gap-2">
+    @for (_ of [0, 1, 2, 3, 4]; track $index) {
+      <div class="bg-item border border-item-border rounded-lg px-3 py-2 flex gap-4 w-full">
+        <div class="hidden md:flex shrink-0 size-7 items-center justify-center rounded-full border text-white bg-[#009AFF] border-none">
+          <svg-icon key="task-check"/>
+        </div>
+
+        <div class="flex flex-col gap-1 w-full">
+          <div class="flex justify-between items-center text-secondary text-sm">
+            <span>01.01.2026</span>
+            <span>15:33</span>
+          </div>
+          <div class="flex justify-between items-center text-secondary">
+            <span class="text-primary text-base">Долг, за сервер</span>
+            <span class="text-error">- 50 $</span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</custom-scrollbar>
+
+<driver />
+
+<div class="grid grid-cols-8 gap-2">
+  <tui-textfield class="col-span-5 min-h-12! h-12!">
+    <input
+      placeholder="Введите текст"
+      tuiTextfield
+      type="text"
+    />
+  </tui-textfield>
+
+  <div class="col-span-3 flex">
+    <div class="h-12 flex items-center justify-center bg-item rounded-lg border border-item-border w-full">
+      50 $
+    </div>
+    <div class="min-w-12 h-12 flex items-center justify-center bg-accent text-white rounded-lg cursor-pointer ml-2">
+      <svg-icon key="check"/>
+    </div>
+  </div>
+</div>

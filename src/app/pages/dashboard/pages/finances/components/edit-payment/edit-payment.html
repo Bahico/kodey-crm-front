@@ -1,0 +1,94 @@
+<h2 class="text-xl text-primary font-semibold">Редактирование Оплата</h2>
+<span class="text-primary text-sm">Diram Wallet</span>
+
+<div class="flex justify-between items-center">
+  <span class="text-primary text-base">Общая сумма:</span>
+
+  <div class="flex gap-2">
+    <div class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border">
+      2 000 $
+    </div>
+    <div class="w-12 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border cursor-pointer">
+      <svg-icon key="check"/>
+    </div>
+  </div>
+</div>
+
+<custom-scrollbar class="h-75">
+  <div class="flex flex-col gap-2">
+    @for (_ of [0, 1, 2, 3, 4, 5]; track $index) {
+      <div class="bg-item border border-item-border rounded-lg p-3 flex flex-col gap-1 w-full">
+        <div class="flex justify-between items-center text-secondary text-sm">
+          <span>01.01.2026</span>
+          <span>15:33</span>
+        </div>
+        <div class="flex justify-between items-center text-secondary">
+          <span class="text-primary">Пополнение <span class="text-accent">Humo</span></span>
+          <span class="text-accent">+ 200 $</span>
+        </div>
+      </div>
+    }
+  </div>
+</custom-scrollbar>
+
+<driver/>
+
+<div class="flex justify-between items-center">
+  <span class="text-primary">Уплачено:</span>
+
+  <div class="flex gap-2">
+    <div
+      class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border"
+      [tuiDropdown]="typeContent"
+      [(tuiDropdownOpen)]="openType"
+      tuiDropdownLimitWidth="fixed"
+    >
+      {{ type() }}
+    </div>
+    <div class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border">
+      50 $
+    </div>
+    <div class="w-12 h-12 flex items-center justify-center bg-accent text-white rounded-lg cursor-pointer">
+      <svg-icon key="check"/>
+    </div>
+  </div>
+</div>
+
+<ng-template
+  #typeContent
+>
+  <tui-data-list>
+    <tui-opt-group>
+      <button
+        tuiOption
+        type="button"
+        (click)="type.set('Humo'); openType.set(false)"
+      >
+        <span class="flex items-center gap-2">
+          <svg-icon key="position" size="lg"/>
+          Humo
+        </span>
+      </button>
+      <button
+        tuiOption
+        type="button"
+        (click)="type.set('Uzcard'); openType.set(false)"
+      >
+        <span class="flex items-center gap-2">
+          <svg-icon key="position" size="lg"/>
+          Uzcard
+        </span>
+      </button>
+      <button
+        tuiOption
+        type="button"
+        (click)="type.set('Binance'); openType.set(false)"
+      >
+        <span class="flex items-center gap-2">
+          <svg-icon key="position" size="lg"/>
+          Binance
+        </span>
+      </button>
+    </tui-opt-group>
+  </tui-data-list>
+</ng-template>

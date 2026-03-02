@@ -1,0 +1,208 @@
+<h2 class="text-xl text-primary font-semibold">Редактирование Расходы</h2>
+<span class="text-primary text-sm">Diram Wallet</span>
+
+<div class="flex justify-between items-center">
+  <span class="text-primary text-base">Кристина <span class="text-secondary">Проект-менеджер</span></span>
+
+  <div class="flex gap-2">
+    <div class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border">
+      2 000 $
+    </div>
+    <div class="w-12 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border cursor-pointer">
+      <svg-icon key="check"/>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-between items-center">
+  <span class="text-primary text-base">Виктор <span class="text-secondary">Дизайнер</span></span>
+
+  <div class="flex gap-2">
+    <div class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border">
+      1 000 $
+    </div>
+    <div class="w-12 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border cursor-pointer">
+      <svg-icon key="check"/>
+    </div>
+  </div>
+</div>
+<div class="flex justify-between items-center">
+  <span></span>
+  <button
+    [tuiDropdown]="usersContent"
+    [tuiDropdownManual]="openAddUser()"
+    [tuiObscuredEnabled]="openAddUser()"
+    (click)="onClick()"
+    (tuiActiveZoneChange)="onActiveZone($event)"
+    (tuiObscured)="onObscured($event)"
+    [tuiDropdownMaxHeight]="600"
+    class="c-btn-primary w-54 h-11.5!"
+  >
+    Добавить расход
+  </button>
+</div>
+<div class="flex justify-between items-center text-primary">
+  <span>Общая сумма расходов:</span>
+  <span class="px-6">1 000 $</span>
+</div>
+
+<custom-scrollbar class="h-75">
+  <div class="flex flex-col gap-2">
+    @for (_ of [0, 1, 2, 3, 4, 5]; track $index) {
+      <div class="bg-item border border-item-border rounded-lg px-3 py-2 flex flex-col gap-1 w-full">
+        <div class="flex justify-between items-center text-secondary text-sm">
+          <span>01.01.2026</span>
+          <span>15:33</span>
+        </div>
+        <div class="flex justify-between items-center text-secondary">
+          <span class="text-primary text-base">Виктор <span class="text-secondary">Дизайнер</span></span>
+          <span class="text-error">- 200 $</span>
+        </div>
+        <div class="flex justify-between items-center text-secondary">
+          <span class="text-accent text-base">Humo</span>
+          <span class="text-secondary">200$ / 800$</span>
+        </div>
+      </div>
+    }
+  </div>
+</custom-scrollbar>
+
+<driver/>
+
+<div class="flex justify-between items-center">
+  <span class="text-primary">Выплачено:</span>
+
+  <div class="flex gap-2">
+    <div
+      class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border"
+      [tuiDropdown]="userContent"
+      [(tuiDropdownOpen)]="openUser"
+      tuiDropdownLimitWidth="fixed"
+    >
+      {{ user() }}
+    </div>
+    <div
+      class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border"
+      [tuiDropdown]="typeContent"
+      [(tuiDropdownOpen)]="openType"
+      tuiDropdownLimitWidth="fixed"
+    >
+      {{ type() }}
+    </div>
+    <div class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border">
+      50 $
+    </div>
+    <div class="w-12 h-12 flex items-center justify-center bg-accent text-white rounded-lg cursor-pointer">
+      <svg-icon key="check"/>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-between items-center">
+  <span class="text-primary">Реквизиты:</span>
+
+  <tui-textfield class="w-70">
+    <input
+      placeholder="0000 0000 0000 0000"
+      mask="0000 0000 0000 0000"
+      tuiTextfield
+      type="text"
+      [(ngModel)]="card"
+    />
+
+    <tui-icon
+      [cdkCopyToClipboard]="card()"
+      (cdkCopyToClipboardCopied)="copy()"
+      class="text-accent"
+      [icon]="copied() ? '@tui.check' : '@tui.copy'"
+    />
+  </tui-textfield>
+</div>
+<ng-template
+  #userContent
+>
+  <tui-data-list>
+    <tui-opt-group>
+      <button
+        tuiOption
+        type="button"
+        (click)="user.set('Кристина'); openUser.set(false)"
+      >
+        <span class="flex items-center gap-2">
+          Кристина
+        </span>
+      </button>
+      <button
+        tuiOption
+        type="button"
+        (click)="user.set('Виктор'); openUser.set(false)"
+      >
+        <span class="flex items-center gap-2">
+          Виктор
+        </span>
+      </button>
+    </tui-opt-group>
+  </tui-data-list>
+</ng-template>
+
+<ng-template
+  #typeContent
+>
+  <tui-data-list>
+    <tui-opt-group>
+      <button
+        tuiOption
+        type="button"
+        (click)="type.set('Humo'); openType.set(false)"
+      >
+        <span class="flex items-center gap-2">
+          Humo
+        </span>
+      </button>
+      <button
+        tuiOption
+        type="button"
+        (click)="type.set('Uzcard'); openType.set(false)"
+      >
+        <span class="flex items-center gap-2">
+          Uzcard
+        </span>
+      </button>
+      <button
+        tuiOption
+        type="button"
+        (click)="type.set('Binance'); openType.set(false)"
+      >
+        <span class="flex items-center gap-2">
+          Binance
+        </span>
+      </button>
+    </tui-opt-group>
+  </tui-data-list>
+</ng-template>
+
+<ng-template #usersContent>
+  <div class="flex flex-col gap-2 p-2">
+    <span class="text-secondary">Выберите участника проекта</span>
+    <div class="flex flex-col gap-2 max-h-800 overflow-y-auto">
+      @for (_ of [0, 1, 2, 3, 4, 5]; track $index) {
+        <div
+          class="flex gap-1 items-center py-1 px-2 rounded-lg cursor-pointer"
+          [class.dark:bg-[#1A1A1A]!]="$first"
+          [class.bg-[#1A1A1A1A]]="$first"
+        >
+          <svg-icon
+            key="position"
+            size="lg"
+            class="text-[#EAEAEA] dark:text-[#7D7D85]"
+            [class.text-[#009AFF]!]="$first"
+          />
+          <div class="text-primary dark:text-[#DDDDDD]">
+            Лазиз
+            <span class="dark:text-[#7D7D85]">{{ '@chatbotzero' }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</ng-template>

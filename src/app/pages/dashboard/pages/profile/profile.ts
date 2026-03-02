@@ -12,6 +12,7 @@ import {AccountService} from '@/services/account.service';
 @Component({
   templateUrl: 'profile.html',
   selector: 'app-profile',
+  host: {class: 'flex h-full overflow-y-auto'},
   imports: [SvgIconComponent, TuiTextfield, FormsModule, TuiIcon, TuiPassword],
 })
 export default class Profile {
