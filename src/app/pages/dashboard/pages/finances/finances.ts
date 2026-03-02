@@ -1,37 +1,25 @@
-import {Component, inject, signal} from '@angular/core';
-import {CustomScrollbar} from '@/shared/components/custom-scrollbar/custom-scrollbar';
-import {injectRegisterIcons, SvgIconComponent} from '@ngneat/svg-icon';
+import {Component, inject} from '@angular/core';
+import {injectRegisterIcons} from '@ngneat/svg-icon';
 import {rightSquareIcon} from '@/svg/right-square';
 import {filterIcon} from '@/svg/filter';
-import {NgClass} from '@angular/common';
-import {TuiDropdown} from '@taiga-ui/core';
-import {TuiActiveZone, TuiObscured} from '@taiga-ui/cdk';
 import {FormsModule} from '@angular/forms';
-import {TuiCheckbox} from '@taiga-ui/kit';
-import {ResponsiveBreakpointsService} from '@/services/responsive-breakpoints.service';
+import {AccountService} from '@/services/account.service';
+import {MyFinance} from './components/my-finance/my-finance';
+import {AllFinance} from './components/all-finance/all-finance';
 
 @Component({
   templateUrl: 'finances.html',
   selector: 'app-finances',
-  host: {class: 'overflow-y-auto h-full flex flex-col pb-4'},
   imports: [
-    CustomScrollbar,
-    SvgIconComponent,
-    NgClass,
-    TuiDropdown,
-    TuiObscured,
-    TuiActiveZone,
     FormsModule,
-    TuiCheckbox
+    MyFinance,
+    AllFinance
   ],
 })
 export default class FinancesComponent {
-  private readonly rbs = inject(ResponsiveBreakpointsService);
+  private readonly accountService = inject(AccountService);
 
-  protected readonly btnSize = this.rbs.btnSize;
-  protected readonly activeYear = signal<number>(null);
-  protected readonly activeMonth = signal<number>(null);
-  protected readonly open = signal(false);
+  protected readonly isAdmin = this.accountService.isAdmin;
 
   constructor() {
     injectRegisterIcons([
@@ -40,17 +28,5 @@ export default class FinancesComponent {
     ]);
   }
 
-  protected onClick(): void {
-    this.open.set(!this.open());
-  }
 
-  protected onObscured(obscured: boolean): void {
-    if (obscured) {
-      this.open.set(false);
-    }
-  }
-
-  protected onActiveZone(active: boolean): void {
-    this.open.set(active && this.open());
-  }
 }

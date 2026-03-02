@@ -1,0 +1,117 @@
+<div class="card p-4 gap-4">
+  <div class="flex justify-between items-center">
+    <h1 class="text-primary text-lg">Общие доходы за год:</h1>
+
+    <div class="flex gap-2">
+      @for (_ of [0, 1, 2, 3, 4]; track $index) {
+        <div
+          [ngClass]="{'bg-accent! text-white': activeYear() === $index}"
+          (click)="activeYear.set($index)"
+          class="text-base text-primary flex items-center justify-center rounded-xl bg-item border border-item-border min-w-18 w-18 md:w-25 h-10 md:h-12.5 cursor-pointer hover:opacity-60 transition-opacity duration-300"
+        >
+          {{2025+$index}}
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="h-px w-full shrink-0 bg-[#28292D]" aria-hidden="true"></div>
+
+  <div class="flex gap-2">
+    @for (_ of [0, 1, 2, 3, 4]; track $index) {
+      <div
+        [ngClass]="{'bg-accent! text-white': activeMonth() === $index}"
+        (click)="activeMonth.set($index)"
+        class="text-base text-primary flex items-center justify-center rounded-xl bg-item border border-item-border min-w-18 w-18 md:w-25 h-10 md:h-12.5 cursor-pointer hover:opacity-60 transition-opacity duration-300"
+      >
+        Янв
+      </div>
+    }
+  </div>
+</div>
+
+<div class="card p-4 max-h-[calc(100%-180px)]">
+  <custom-scrollbar class="h-[calc(100%-160px)]">
+    <table class="w-full gap-2">
+      <thead>
+      <tr>
+        <th>Проект</th>
+        <th>Статус</th>
+        <th>Оплата</th>
+        <th>Расходы</th>
+        <th>Долг</th>
+        <th>Доп. доход</th>
+        <th class="text-end!">Чистая прибыль</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (_ of [0, 1, 2, 3, 4, 5, 6]; track $index) {
+          <tr>
+            <td>
+              <div class="col">
+                Diram Wallet
+              </div>
+            </td>
+            <td>
+              <div class="col">
+                Выполняется
+              </div>
+            </td>
+            <td>
+              <div class="col col-hoverable">
+                500$ <span class="text-secondary">/ 2000$</span>
+                <svg-icon key="edit" />
+              </div>
+            </td>
+            <td>
+              <div class="col col-hoverable">
+                200$ <span class="text-secondary">/ 800$</span>
+                <svg-icon key="edit" />
+              </div>
+            </td>
+            <td>
+              <div class="col col-hoverable">
+                50$
+                <svg-icon key="edit" />
+              </div>
+            </td>
+            <td>
+              <div class="col col-hoverable">
+                50$ <span class="text-secondary"> / 100$</span>
+                <svg-icon key="edit" />
+              </div>
+            </td>
+            <td>
+              <div class="col">
+                1 100 $
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </custom-scrollbar>
+
+  <div class="flex flex-col w-full rounded-xl bg-background gap-2 px-2 py-4">
+    <div class="flex justify-between text-secondary text-sm">
+      <span>Проектов: 12</span>
+      <span>Сумма:</span>
+    </div>
+    <div class="flex justify-between text-primary">
+      <span>Общая сумма всех проектов:</span>
+      <span>30 500 $</span>
+    </div>
+    <div class="flex justify-between text-primary">
+      <span>Закрыто проектов: 3</span>
+      <span>9 520 $</span>
+    </div>
+    <div class="flex justify-between text-primary">
+      <span>Чистая прибыль:</span>
+      <span>5 100 $</span>
+    </div>
+    <div class="flex justify-between text-primary">
+      <span>Прогноз заработка:</span>
+      <span>12 000 $</span>
+    </div>
+  </div>
+</div>

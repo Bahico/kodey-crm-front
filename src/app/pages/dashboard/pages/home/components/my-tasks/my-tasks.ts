@@ -1,8 +1,6 @@
 import {Component, inject, input, signal} from '@angular/core';
 import {injectRegisterIcons, SvgIconComponent} from '@ngneat/svg-icon';
 import {documentJustifyCenterIcon} from '@/svg/document-justify-center';
-import {chevronUpIcon} from '@/svg/chevron-up';
-import {chevronDownIcon} from '@/svg/chevron-down';
 import type {Task} from '@/shared/models/task.model';
 import {CustomScrollbar} from '@/shared/components/custom-scrollbar/custom-scrollbar';
 import {taskCheckIcon} from '@/svg/task-check';
@@ -124,8 +122,6 @@ export default class HomeMyTasksComponent {
   constructor() {
     injectRegisterIcons([
       documentJustifyCenterIcon,
-      chevronUpIcon,
-      chevronDownIcon,
       taskCheckIcon,
       calendarIcon,
       profileIcon,

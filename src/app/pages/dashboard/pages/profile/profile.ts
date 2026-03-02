@@ -7,6 +7,7 @@ import {TuiIcon, TuiTextfield} from '@taiga-ui/core';
 import {TuiPassword} from '@taiga-ui/kit';
 import {FormsModule} from '@angular/forms';
 import {profileSidebarIcon} from '@/svg/profile-sidebar';
+import {AccountService} from '@/services/account.service';
 
 @Component({
   templateUrl: 'profile.html',
@@ -15,8 +16,10 @@ import {profileSidebarIcon} from '@/svg/profile-sidebar';
 })
 export default class Profile {
   private readonly rbs = inject(ResponsiveBreakpointsService);
+  private readonly accountService = inject(AccountService);
 
   protected readonly btnSize = this.rbs.btnSize;
+  protected readonly isAdmin = this.accountService.isAdmin;
 
   readonly user = signal<{ fullName: string; username: string; role: string; avatarUrl?: string }>({
     fullName: 'Виктор Котов',
