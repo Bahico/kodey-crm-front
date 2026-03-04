@@ -17,7 +17,7 @@ tbody tr td:first-child .col {
 }
 
 td .col {
-  @apply bg-(--color-item) border-y border-(--color-item-border) p-2 text-(--color-primary) text-lg flex gap-2 items-center;
+  @apply bg-(--color-item) border-y border-(--color-item-border) p-2 text-(--color-primary) text-lg flex gap-2 items-center text-nowrap;
 }
 
 td .col-hoverable {

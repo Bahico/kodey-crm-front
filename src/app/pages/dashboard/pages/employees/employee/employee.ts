@@ -6,6 +6,8 @@ import {TuiPassword} from "@taiga-ui/kit";
 import {editIcon} from '@/svg/edit';
 import {profilePlusIcon} from '@/svg/profile-plus';
 import {CdkCopyToClipboard} from '@angular/cdk/clipboard';
+import {closeIcon} from '@/svg/close';
+import {checkIcon} from '@/svg/check';
 
 @Component({
   templateUrl: 'employee.html',
@@ -25,11 +27,12 @@ import {CdkCopyToClipboard} from '@angular/cdk/clipboard';
 })
 export default class EmployeeComponent {
   protected readonly copied = signal<'humo' | 'uzcard' | 'binance' | 'usdt'>(null);
+  protected readonly editMode = signal(false);ww
 
   timeout: NodeJS.Timeout;
 
   constructor() {
-    injectRegisterIcons([editIcon, profilePlusIcon])
+    injectRegisterIcons([editIcon, profilePlusIcon, closeIcon, checkIcon])
   }
 
   copy(name: 'humo' | 'uzcard' | 'binance' | 'usdt') {

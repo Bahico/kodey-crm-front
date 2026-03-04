@@ -88,13 +88,35 @@
           <svg-icon key="profile-sidebar" [size]="'lg'" class="shrink-0"/>
           <h2 class="text-base md:text-xl font-medium leading-tight">Персональные данные</h2>
         </div>
-        <button
-          type="button"
-          class="flex size-8 shrink-0 items-center justify-center rounded-lg text-[#7D7D85] dark:text-white cursor-pointer border border-simple-border dark:bg-[#20242C] hover:opacity-90 transition-opacity"
-          aria-label="Редактировать профиль"
-        >
-          <svg-icon key="edit" size="md"/>
-        </button>
+        <div class="flex gap-2">
+          @if (editMode()) {
+            <button
+              type="button"
+              (click)="editMode.set(false)"
+              class="flex size-8 shrink-0 w-12 h-12 items-center justify-center rounded-lg text-[#7D7D85] dark:text-white cursor-pointer border border-simple-border dark:bg-[#20242C] hover:opacity-90 transition-opacity"
+              aria-label="Редактировать профиль"
+            >
+              <svg-icon key="close" size="sm"/>
+            </button>
+            <button
+              type="button"
+              (click)="editMode.set(false)"
+              class="flex size-8 shrink-0 w-12 h-12 items-center justify-center rounded-lg text-white cursor-pointer bg-accent hover:opacity-90 transition-opacity"
+              aria-label="Редактировать профиль"
+            >
+              <svg-icon key="check" size="md"/>
+            </button>
+          } @else {
+            <button
+              type="button"
+              (click)="editMode.set(true)"
+              class="flex size-8 shrink-0 w-12 h-12 items-center justify-center rounded-lg text-[#7D7D85] dark:text-white cursor-pointer border border-simple-border dark:bg-[#20242C] hover:opacity-90 transition-opacity"
+              aria-label="Редактировать профиль"
+            >
+              <svg-icon key="edit" size="md"/>
+            </button>
+          }
+        </div>
       </div>
 
       <div class="h-px w-full shrink-0 bg-[#F0F2F4] dark:bg-[#28292D]" aria-hidden="true"></div>
@@ -104,7 +126,7 @@
 
         <input
           tuiTextfield
-          [readOnly]="true"
+          [readOnly]="!editMode()"
           ngModel="0000 0000 0000 0000"
         />
 
@@ -120,7 +142,7 @@
 
         <input
           tuiTextfield
-          [readOnly]="true"
+          [readOnly]="!editMode()"
           ngModel="0000 0000 0000 0000"
         />
 
@@ -139,7 +161,7 @@
 
         <input
           tuiTextfield
-          [readOnly]="true"
+          [readOnly]="!editMode()"
           ngModel="0000 0000 0000 0000"
         />
         <tui-icon
@@ -154,7 +176,7 @@
 
         <input
           tuiTextfield
-          [readOnly]="true"
+          [readOnly]="!editMode()"
           ngModel="bAGse255BbBseghSA13UBEA1912ghteW"
         />
 
