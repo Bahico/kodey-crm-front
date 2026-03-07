@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+
 @import "./styles/card.css";
 @import "./styles/theme.css";
 @import "./styles/button.css";
@@ -24,4 +25,30 @@
 body {
   background-color: var(--color-background);
   display: flex;
+}
+
+.ql-formats .ql-stroke, .ql-formats .ql-fill, .ql-snow .ql-picker {
+  stroke: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+
+.ql-snow.ql-toolbar button:hover .ql-stroke {
+  color: var(--color-accent) !important;
+  stroke: var(--color-accent) !important;
+}
+
+.ql-snow .ql-picker-options {
+  background-color: var(--color-bg-dropdown) !important;
+}
+
+.ql-editor.ql-blank::before {
+  color: var(--color-secondary) !important;
+}
+
+.ql-toolbar {
+  @apply rounded-t-lg border-item-border!;
+}
+
+.ql-container {
+  @apply rounded-b-lg border-item-border!;
 }

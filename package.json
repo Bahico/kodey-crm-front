@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm run svg && ng serve --port 4400 --host 0.0.0.0",
+    "start": "npm run svg && ng serve --port 4400",
     "build": "npm run svg && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -61,6 +61,8 @@
     "@taiga-ui/kit": "^4.70.0",
     "express": "^5.1.0",
     "ngx-mask": "^21.0.1",
+    "ngx-quill": "^30.0.1",
+    "quill": "2.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -70,7 +72,7 @@
     "@angular/compiler-cli": "^21.1.0",
     "@tailwindcss/postcss": "^4.1.12",
     "@types/express": "^5.0.1",
-    "@types/node": "^20.17.19",
+    "@types/node": "^24.12.0",
     "jsdom": "^27.1.0",
     "less": "^4.5.1",
     "postcss": "^8.5.3",
