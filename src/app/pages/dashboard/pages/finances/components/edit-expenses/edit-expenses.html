@@ -1,11 +1,11 @@
 <h2 class="text-xl text-primary font-semibold">Редактирование Расходы</h2>
 <span class="text-primary text-sm">Diram Wallet</span>
 
-<div class="flex justify-between items-center">
+<div class="flex flex-col md:flex-row md:justify-between md:items-center">
   <span class="text-primary text-base">Кристина <span class="text-secondary">Проект-менеджер</span></span>
 
   <div class="flex gap-2">
-    <div class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border">
+    <div class="w-full md:w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border">
       2 000 $
     </div>
     <div class="w-12 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border cursor-pointer">
@@ -14,18 +14,19 @@
   </div>
 </div>
 
-<div class="flex justify-between items-center">
+<div class="flex flex-col md:flex-row md:justify-between md:items-center">
   <span class="text-primary text-base">Виктор <span class="text-secondary">Дизайнер</span></span>
 
   <div class="flex gap-2">
-    <div class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border">
-      1 000 $
+    <div class="w-full md:w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border">
+      2 000 $
     </div>
     <div class="w-12 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border cursor-pointer">
       <svg-icon key="check"/>
     </div>
   </div>
 </div>
+
 <div class="flex justify-between items-center">
   <span></span>
   <button
@@ -36,7 +37,7 @@
     (tuiActiveZoneChange)="onActiveZone($event)"
     (tuiObscured)="onObscured($event)"
     [tuiDropdownMaxHeight]="600"
-    class="c-btn-primary w-54 h-11.5!"
+    class="c-btn-primary w-full md:w-54 h-11.5!"
   >
     Добавить расход
   </button>
@@ -70,11 +71,11 @@
 <driver/>
 
 <div class="flex justify-between items-center">
-  <span class="text-primary">Выплачено:</span>
+  <span class="text-primary hidden md:inline-block">Выплачено:</span>
 
-  <div class="flex gap-2">
+  <div class="grid grid-cols-2 w-full md:w-auto md:flex gap-2">
     <div
-      class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border"
+      class="md:w-40 h-12 col-span-2 order-1 md:-order-1 flex items-center justify-center bg-item rounded-lg border border-item-border"
       [tuiDropdown]="userContent"
       [(tuiDropdownOpen)]="openUser"
       tuiDropdownLimitWidth="fixed"
@@ -82,26 +83,26 @@
       {{ user() }}
     </div>
     <div
-      class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border"
+      class="md:w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border"
       [tuiDropdown]="typeContent"
       [(tuiDropdownOpen)]="openType"
       tuiDropdownLimitWidth="fixed"
     >
       {{ type() }}
     </div>
-    <div class="w-40 h-12 flex items-center justify-center bg-item rounded-lg border border-item-border">
+    <div class="md:w-40 h-12 -order-1 md:order-1 flex items-center justify-center bg-item rounded-lg border border-item-border">
       50 $
     </div>
-    <div class="w-12 h-12 flex items-center justify-center bg-accent text-white rounded-lg cursor-pointer">
+    <div class="hidden md:flex w-12 h-12 order-1 items-center justify-center bg-accent text-white rounded-lg cursor-pointer">
       <svg-icon key="check"/>
     </div>
   </div>
 </div>
 
 <div class="flex justify-between items-center">
-  <span class="text-primary">Реквизиты:</span>
+  <span class="text-primary hidden md:inline-block">Реквизиты:</span>
 
-  <tui-textfield class="w-70">
+  <tui-textfield class="w-full md:w-70">
     <input
       placeholder="0000 0000 0000 0000"
       mask="0000 0000 0000 0000"

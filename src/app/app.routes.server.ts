@@ -9,4 +9,8 @@ export const serverRoutes: ServerRoute[] = [
     path: 'my-tasks/:id',
     renderMode: RenderMode.Client
   },
+  {
+    path: 'employees/:id',
+    renderMode: RenderMode.Client
+  },
 ];
