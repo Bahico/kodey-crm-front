@@ -8,7 +8,7 @@ import {profilePlusIcon} from '@/svg/profile-plus';
 import {CdkCopyToClipboard} from '@angular/cdk/clipboard';
 import {closeIcon} from '@/svg/close';
 import {checkIcon} from '@/svg/check';
-
+import {NgxMaskDirective} from 'ngx-mask';
 @Component({
   templateUrl: 'employee.html',
   selector: 'app-employee',
@@ -22,17 +22,18 @@ import {checkIcon} from '@/svg/check';
     TuiPassword,
     TuiTextfieldComponent,
     TuiTextfieldDirective,
-    CdkCopyToClipboard
+    CdkCopyToClipboard,
+    NgxMaskDirective
   ]
 })
 export default class EmployeeComponent {
   protected readonly copied = signal<'humo' | 'uzcard' | 'binance' | 'usdt'>(null);
-  protected readonly editMode = signal(false);ww
+  protected readonly editMode = signal(false);
 
   timeout: NodeJS.Timeout;
 
   constructor() {
-    injectRegisterIcons([editIcon, profilePlusIcon, closeIcon, checkIcon])
+    injectRegisterIcons([editIcon, profilePlusIcon, closeIcon, checkIcon]);
   }
 
   copy(name: 'humo' | 'uzcard' | 'binance' | 'usdt') {

@@ -2,13 +2,20 @@
   class="flex h-15 md:h-25 w-full shrink-0 items-center justify-between dark:border-b-2 border-[#28292D] bg-(--color-layout-bg) px-6"
   role="banner"
 >
-  <!-- Левая часть: Главная -->
+  <!-- Левая часть: текущий раздел и опционально дочерняя подпись (например, projectName) -->
   <div
     class="flex items-center gap-3 transition-opacity hover:opacity-90 text-black dark:text-[#DDDDDD]"
   >
     <svg-icon key="logo-kodey" class="text-[#009AFF] md:hidden!" size="lg" routerLink="/" />
-    <svg-icon [key]="currentRoute().icon" class="h-8 w-8 shrink-0" size="lg"/>
-    <span class="text-sm md:text-2xl font-medium">{{ currentRoute().label }}</span>
+    <svg-icon [key]="currentRoute().icon" class="h-8 w-8 shrink-0" size="lg" [class]="routeChild() && 'text-secondary'"/>
+    <span class="text-sm md:text-2xl font-medium">
+      <span 
+      [class]="routeChild() && 'text-secondary font-normal'"
+      > {{ currentRoute().label }}</span>
+      @if (routeChild()) {
+        <span> / {{ routeChild() }}</span>
+      }
+    </span>
   </div>
 
   <!-- Правая часть: поиск, разделитель, уведомления, тема -->

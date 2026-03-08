@@ -4,8 +4,6 @@ import HomeMyTasksComponent from '@/pages/dashboard/pages/home/components/my-tas
 @Component({
   templateUrl: 'my-tasks.html',
   selector: 'app-my-tasks',
-  imports: [
-    HomeMyTasksComponent
-  ]
+  imports: [HomeMyTasksComponent],
 })
 export default class MyTasksComponent {}

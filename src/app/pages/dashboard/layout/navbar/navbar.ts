@@ -1,25 +1,22 @@
+import { NavbarService } from '@/pages/dashboard/layout/navbar/navbar.service';
+import { ResponsiveBreakpointsService } from '@/services/responsive-breakpoints.service';
 import { ThemeToggleComponent } from '@/shared/components/theme-toggle/theme-toggle.component';
+import { cardIcon } from '@/svg/card';
+import { documentJustifyCenterIcon } from '@/svg/document-justify-center';
+import { employeesIcon } from '@/svg/employees';
+import { exitIcon } from '@/svg/exit';
+import { folderIcon } from '@/svg/folder';
 import { homeIcon } from '@/svg/home';
+import { logoKodeyIcon } from '@/svg/logo-kodey';
 import { notificationIcon } from '@/svg/notification';
+import { profileSidebarIcon } from '@/svg/profile-sidebar';
 import { searchIcon } from '@/svg/search';
-import { Component, computed, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import {NavigationEnd, Router, RouterLink, RouterLinkActive} from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { injectRegisterIcons, SvgIconComponent } from '@ngneat/svg-icon';
-import { filter, map } from 'rxjs';
+import { TuiActiveZone, TuiObscured } from '@taiga-ui/cdk';
+import { TuiDropdown } from '@taiga-ui/core';
 import { SIDEBAR_ITEMS } from '../sidebar/sidebar-items';
-import {TuiDropdown} from '@taiga-ui/core';
-import {TuiActiveZone, TuiObscured} from '@taiga-ui/cdk';
-import {exitIcon} from '@/svg/exit';
-import {documentJustifyCenterIcon} from '@/svg/document-justify-center';
-import {cardIcon} from '@/svg/card';
-import {folderIcon} from '@/svg/folder';
-import {logoKodeyIcon} from '@/svg/logo-kodey';
-import {ResponsiveBreakpointsService} from '@/services/responsive-breakpoints.service';
-import {profileIcon} from '@/svg/profile';
-import {profilePlusIcon} from '@/svg/profile-plus';
-import {profileSidebarIcon} from '@/svg/profile-sidebar';
-import {employeesIcon} from '@/svg/employees';
 
 @Component({
   templateUrl: 'navbar.html',
@@ -38,6 +35,7 @@ import {employeesIcon} from '@/svg/employees';
 export class NavbarComponent {
   private readonly router = inject(Router);
   private readonly rbs = inject(ResponsiveBreakpointsService);
+  private readonly navbarService = inject(NavbarService);
 
   protected open = signal(false);
   protected openNavbar = signal(false);
@@ -45,14 +43,9 @@ export class NavbarComponent {
   protected readonly btnSize = this.rbs.btnSize;
   protected readonly navItems = SIDEBAR_ITEMS;
 
-  protected readonly currentPath = toSignal(this.router.events.pipe(
-    filter((e): e is NavigationEnd => e instanceof NavigationEnd),
-    map(() => this.router.url.split('?')[0].split('/').filter(Boolean).pop() || ''),
-  ), { initialValue: this.router.url.split('?')[0].split('/').filter(Boolean).pop() || '' });
 
-  readonly currentRoute = computed(() =>
-    SIDEBAR_ITEMS.find(item => item.path === this.currentPath()) ?? { label: 'Главная', icon: 'home' }
-  );
+  readonly currentRoute = this.navbarService.currentRoute;
+  readonly routeChild = this.navbarService.routeChild;
 
   readonly searchPlaceholder = 'Поиск по сайту';
 
